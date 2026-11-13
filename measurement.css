@@ -1,0 +1,102 @@
+.measurement-settings{padding:12px 16px;border-top:1px solid #ffffff1c;border-bottom:1px solid #ffffff1c;letter-spacing:0}
+.measurement-settings *{letter-spacing:0}
+.measurement-settings [hidden],.measurement-settings[hidden]{display:none!important}
+.measurement-settings header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.measurement-settings h3{font-size:12px;font-weight:550;margin:0}
+.measurement-settings header button{width:30px;height:30px;padding:0;display:grid;place-items:center;border-radius:4px;flex-shrink:0}
+.hwp-arm{border:0;padding:0;margin:0 0 10px;min-width:0}
+.hwp-arm legend{font-size:11px;color:#9de0e8;margin:0 0 6px;padding:0}
+.hwp-arm[data-arm=B] legend{color:#ebce90}
+.hwp-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.hwp-pair label{display:block;min-width:0;font-size:11px}
+.hwp-input{display:flex;align-items:center;gap:4px;margin:3px 0;background:#10191d;border:1px solid #52616a;border-radius:4px;padding:4px 6px;min-height:34px}
+.hwp-input input{width:100%;min-width:0;border:0;background:transparent;color:#edf5f2;font:13px/1.4 var(--font);font-variant-numeric:tabular-nums;padding:0}
+.hwp-input:has(input:invalid){border-color:#e9a59e}
+.hwp-input>span{color:#b1bec3}
+.hwp-pair small{color:#a9bdc4;font-size:10px;display:block;overflow-wrap:anywhere}
+.hwp-selector{display:flex;gap:3px;margin:8px 0 0;background:#10191d;border-radius:4px;padding:2px}
+.hwp-selector button{flex:1;padding:2px 8px;font-size:11px;min-height:25px!important;border:0;border-radius:3px}
+.hwp-slider{margin:10px 0 6px!important;display:block}
+.hwp-prediction{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3px 8px;padding:9px 0;border-top:1px solid #ffffff1c;font-size:10px;color:#b6c6c7}
+.hwp-prediction strong{font-size:19px;font-weight:500;color:#c0e3cd;font-variant-numeric:tabular-nums}
+.hwp-prediction output{font-size:12px;color:#d6e1e0;font-variant-numeric:tabular-nums}
+.hwp-theory{font-size:10px;line-height:1.7;color:#b4c5c8}
+.hwp-theory summary{cursor:pointer;padding:5px 0;color:#d1dedb}
+.hwp-theory p{margin:8px 0;overflow-wrap:anywhere}
+.hwp-theory table{width:100%;border-collapse:collapse;table-layout:auto;margin:5px 0;font-size:10px}
+.hwp-theory th,.hwp-theory td{padding:4px 2px;border-bottom:1px solid #ffffff16;text-align:left;white-space:normal}
+#hwp-lock-status,.hwp-assumption{font-size:10px;margin:6px 0 0!important;color:#b6c5ca}
+.hwp-cell{display:block;color:#9dbcb3;font-size:10px;white-space:nowrap}
+#assembly-workspace #assembly-hwp-settings{padding:12px 0;margin:12px 0;clear:both}
+#assembly-workspace #assembly-hwp-settings h3{font-size:12px}
+#assembly-workspace #assembly-hwp-settings header button{min-height:30px}
+.instrument-panel .result-pair strong{letter-spacing:0}
+.instrument-panel .result-pair[hidden],#measurement-workflow [hidden]{display:none!important}
+#measurement-workflow{padding:12px 16px;border-bottom:1px solid #ffffff1c;letter-spacing:0}
+#measurement-workflow *{letter-spacing:0}
+#measurement-workflow header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#measurement-workflow h3{font-size:13px;font-weight:550;margin:0}
+#measurement-workflow header button{width:30px;height:30px;padding:0;display:grid;place-items:center;border-radius:4px;flex-shrink:0}
+#measurement-progress{font-size:12px;line-height:1.6;color:#c4ead8;margin:6px 0 10px;overflow-wrap:anywhere}
+#measurement-records{margin:0 0 12px;padding:0;border:0}
+#measurement-records summary{display:flex;align-items:center;gap:5px;font-size:10px;color:#bbcece;cursor:pointer;padding:4px 0;line-height:1.7;min-height:28px}
+#measurement-records summary>span{float:none;display:flex;align-items:center;gap:3px;margin-right:auto}
+#measurement-records summary svg{width:12px;height:12px;flex-shrink:0}
+#measurement-records[open] summary svg{transform:rotate(90deg)}
+#latest-e{float:none;font-size:10px;font-variant-numeric:tabular-nums;color:#a9dfc2}
+#measurement-records[open] summary{margin-bottom:6px}
+#measurement-records[open] #latest-e{display:none}
+.measurement-ledger{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10px;font-variant-numeric:tabular-nums;margin:0 0 12px}
+.measurement-ledger caption{text-align:left;font-size:10px;color:#afc1c7;padding-bottom:5px}
+.measurement-ledger th,.measurement-ledger td{padding:6px 3px;border-bottom:1px solid #ffffff16;white-space:normal;overflow-wrap:anywhere;text-align:right}
+.measurement-ledger th:first-child{width:36px;text-align:left}
+.measurement-ledger th:last-child{width:62px}
+.measurement-ledger thead th{font-size:10px;font-weight:400;color:#adbfc5}
+.measurement-ledger tbody th{font-weight:500;color:#d8e4e2}
+.measurement-ledger small{display:block;font-size:9px;color:#92aab1;font-weight:400;margin-top:2px}
+.measurement-ledger tr[aria-current]{background:#ffffff09;box-shadow:inset 2px 0 #d5b878}
+.measurement-ledger tr[data-recorded=true] td:last-child{color:#a9dfc2}
+.measurement-group-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;margin-bottom:8px}
+.measurement-group-head h4{font-size:12px;font-weight:500;margin:0}
+#position-status{font-size:10px;color:#e0bd7d}
+#position-status[data-ready=true]{color:#9fdab8}
+.position-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.position-pair label{min-width:0;font-size:11px;color:#bad8de}
+.position-pair label:last-child{color:#e2ca9d}
+.position-pair small{font-size:10px;color:#aebfc6}
+.position-pair input[type=range]{display:block;margin:9px 0 10px;width:100%}
+.measurement-actions{display:flex;gap:8px}
+.measurement-actions button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:32px;flex:1;font-size:11px;border-radius:4px;white-space:normal}
+.measurement-actions svg{flex-shrink:0}
+#measurement-acquisition .acquisition{padding:12px 0 8px;margin:0;border:0}
+#measurement-acquisition .acquisition>div:first-child{flex-wrap:wrap;gap:4px 10px;line-height:1.6}
+#measurement-acquisition #step-label{min-width:0;overflow-wrap:anywhere}
+#measurement-acquisition #time-label{white-space:nowrap}
+#measurement-acquisition .run-row{display:grid;gap:6px;padding:0;margin:0;grid-template-columns:minmax(0,1fr) 32px 54px}
+#measurement-acquisition #run{font-size:11px;white-space:normal;min-height:34px;padding:7px 6px}
+#measurement-acquisition #pause{padding:7px 4px}
+#measurement-acquisition #speed{padding:6px 4px;font-size:10px}
+#hwp-presets summary{font-size:11px;cursor:pointer;padding:5px 0;color:#d1dedb}
+#hwp-presets header{margin:8px 0}
+#assembly-hwp-lock{font-size:10px;color:#e0bd7d;margin:5px 0 0}
+#assembly-hwp-lock:empty{display:none}
+.group-angle-editor{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10px}
+.group-angle-editor th,.group-angle-editor td{text-align:left;padding:3px 2px;white-space:normal}
+.group-angle-editor th:first-child{width:42px;font-weight:400}
+.group-angle-editor thead th{font-weight:400;color:#adbec4}
+.group-angle-editor th:nth-child(2){color:#9de0e8}
+.group-angle-editor th:nth-child(3){color:#ebce90}
+.group-angle-editor .hwp-input{padding:4px;gap:2px}
+.group-angle-editor input{font-size:12px}
+.assembly-preview-label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;margin:10px 0}
+.assembly-preview-label select{min-width:90px}
+.assembly-angle-preview{display:block;font-size:11px}
+.assembly-angle-preview output{font-variant-numeric:tabular-nums}
+.measurement-warning{font-size:11px;line-height:1.7;color:#ebce90;overflow-wrap:anywhere;margin:6px 0 10px}
+#measurement-reset-dialog{width:min(380px,calc(100vw - 32px));padding:22px;border:1px solid #52616a;border-radius:6px;color:#edf5f2;background:#182521}
+#measurement-reset-dialog h2{font-size:17px;margin:0 0 12px}
+#measurement-reset-dialog p{font-size:13px;line-height:1.8;color:#b6c5ca;margin:0 0 20px}
+#measurement-reset-dialog form>div{display:flex;justify-content:flex-end;gap:8px}
+#measurement-reset-dialog button{padding:8px 16px;font-size:12px}
+@media(max-width:760px),(max-height:560px){#measurement-workflow{padding:10px 16px}#measurement-progress{margin-bottom:6px}#measurement-acquisition .acquisition{padding:8px 0 6px}.position-pair input[type=range]{margin:8px 0}#measurement-records{margin-bottom:8px}}
+@media(max-width:899px){#assembly-workspace #assembly-hwp-settings{padding:10px 0}.hwp-input{min-height:34px}}

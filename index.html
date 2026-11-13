@@ -12,7 +12,7 @@
 
 /* Clickable explanations share the dark results palette. */
 .chart-interaction-hint{margin:0 24px 15px;color:#a9c9b7;font-size:12px}.chart-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px;padding:0 3px 9px;border-bottom:1px solid #30483c}.chart-heading button{font-size:12px;color:#cbe6d5;background:none;border:0;padding:4px 0;text-align:left}.chart-heading span{font-size:10px;color:#91b7a3;white-space:nowrap}.chart svg{cursor:help}.chart [data-help]{cursor:pointer}.chart [data-help]:hover{filter:brightness(1.25)}[data-help]:focus-visible{outline:2px solid #9de0bd;outline-offset:3px}.table-title button{font:inherit;text-align:left;background:none;color:inherit;border:0;padding:4px 0}.table-title button:hover,.chart-heading button:hover{text-decoration:underline;text-underline-offset:4px}th button{font:inherit;color:inherit;border:0;background:none;padding:3px 0;border-bottom:1px dotted #779d85;border-radius:0}td[data-help]{cursor:pointer}td[data-help]:hover{background:#a7d5ba16}.chart-help-dialog{width:min(620px,92vw);max-height:86vh}.chart-help-dialog::backdrop{background:#08100bd1;backdrop-filter:blur(4px)}.chart-help-dialog .dialog-head h2{font-size:18px;line-height:1.5}.chart-help-body{padding:5px 24px 22px;font-size:13px;line-height:1.9;color:#c3d7cc;overflow-wrap:anywhere}.chart-help-body h3{font-size:12px;color:#91c9ad;margin:0 0 6px}.chart-help-body section{margin-top:19px}.chart-help-body p{margin:12px 0}.chart-help-body section p{margin:0}.help-formula{padding:12px 14px;border:1px solid #3a5949;border-radius:8px;background:#10281d;color:#d4f2df;font-variant-numeric:tabular-nums}.help-current{padding:14px 16px;background:#1c3428;border-left:3px solid #83c7a2;border-radius:4px}.help-variables{display:flex;flex-wrap:wrap;gap:7px}.help-variables button{padding:6px 10px;font-size:11px;text-align:left;border-color:#355d48;color:#b9d6c6}.chart-help-body .help-close-hint{font-size:11px;color:#8da899;margin-top:20px}@media(max-width:760px){.chart-interaction-hint{margin-left:14px;margin-right:14px;font-size:11px}.chart-help-body{padding-left:17px;padding-right:17px}.chart-help-dialog .dialog-head h2{font-size:16px}.chart-heading{min-width:0}.chart-heading span{display:none}}
-</style></head><body>
+</style><link rel="stylesheet" href="assembly.css"><link rel="stylesheet" href="measurement.css"><script src="assembly-scene.js"></script></head><body>
 <div id="viewport" tabindex="0" aria-label="三维光学实验场景。WASD移动，QE升降，右键拖动观察。"></div>
 <div id="loading"><div class="load-orbit">Q</div><h1>正在构建光学实验室</h1><p>载入三维元件与实验数据 · 全部本地运行</p></div>
 <header class="hud topbar"><div class="brand"><span class="brand-mark">Q</span><div><strong>偏振纠缠<span class="slash"> / </span>3D 实验室</strong><small>POLARIZATION ENTANGLEMENT · VIRTUAL LAB</small></div></div><div class="header-actions"><span class="status-pill"><i></i>自由视角</span><button id="results-open">数据与图表 <span>↗</span></button><button id="fullscreen" title="全屏" aria-label="全屏">⛶</button></div></header>
@@ -24,7 +24,7 @@
 <details id="parameters-details"><summary>仿真参数 <span>⌄</span></summary><fieldset id="parameters" disabled><label>单设置时长 <output id="duration-value">30 s</output><input id="duration" type="range" min="10" max="120" step="5" value="30"></label><label>信号强度 <output id="gain-value">1.00</output><input id="gain" type="range" min="0.1" max="2" step="0.05" value="1"></label><label><span id="visibility-label">模型可见度 V</span><output id="visibility-value">0.98</output><input id="visibility" type="range" min="0" max="1" step="0.01" value="0.98"></label><label>背景倍率 <output id="background-value">1.00</output><input id="background" type="range" min="0" max="3" step="0.1" value="1"></label><label>随机种子<input id="seed" type="text" maxlength="32" value="20260922"></label></fieldset></details>
 <div class="acquisition"><div><span id="step-label">准备就绪 · 等待开始</span><span id="time-label">0 / 480 s</span></div><div class="progress"><i id="progress" style="width:0%"></i></div><div class="count-line"><span>符合计数</span><strong id="counts">—</strong></div></div>
 <div class="run-row"><button id="run" class="primary">▶ 开始模拟</button><button id="pause" title="暂停 / 继续" disabled>Ⅱ</button><select id="speed" aria-label="演示速度"><option value="20">20×</option><option value="60" selected>60×</option><option value="120">120×</option><option value="480">480×</option></select></div>
-<div class="selected-optic"><span class="section-label">当前元件 <span id="part-index">—</span></span><strong id="part-title">点击任一光学元件</strong><p id="part-description">观察镜架、立柱与调节机构。元件位置固定，WASD 仅移动观察视角。</p><div id="angle-setting" hidden><label>分析角 <output id="angle-value">0°</output><input id="analyzer-angle" type="range" min="-112.5" max="90" step="0.5" value="0"></label><small>分析轴角度演示；采集按 16 组分析方向进行。</small></div></div><div class="panel-foot"><i></i><span id="run-status">标准模拟 · 准备就绪</span></div></div></aside>
+<div class="selected-optic"><span class="section-label">当前元件 <span id="part-index">—</span></span><strong id="part-title">点击任一光学元件</strong><p id="part-description">测量臂半波片选择偏振测量基；偏振片保持固定。</p><div id="angle-setting" hidden><label><span id="selected-hwp-label">半波片机械角 θ</span> <output id="angle-value">0°</output><input id="analyzer-angle" type="range" aria-label="选中半波片机械角" min="-90" max="90" step="0.01" value="0"></label><small>固定偏振片为 0°；分析角 = 2 × θ。</small></div></div><div class="panel-foot"><i></i><span id="run-status">标准模拟 · 准备就绪</span></div></div></aside>
 <div class="hud minimap-panel"><div><span>场景导览</span><span id="camera-height">自由视角</span></div><canvas id="minimap" width="360" height="200" aria-label="光学台与相机位置俯视图"></canvas><span id="camera-position">X 0.0 · Z 0.0</span></div>
 <footer class="hud movement"><div class="keys"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></div><div class="movement-copy"><strong>自由移动</strong><span><b>右键拖动</b> 观察 · <b>滚轮</b> 靠近</span></div><i></i><div class="more-keys"><span><kbd>Q</kbd><kbd>E</kbd> 降低 / 升高</span><span><kbd>Shift</kbd> 加速 · <kbd>R</kbd> 复位</span></div><button id="immersive" title="隐藏界面，Tab恢复">纯净视图 <kbd>Tab</kbd></button></footer>
 <div id="hint">WASD 移动视角 · 右键拖动观察 · R 返回全景</div><div id="toast" role="status"></div>
@@ -89,6 +89,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     return [(1+E)/4,(1-E)/4,(1-E)/4,(1+E)/4];
   }
   function groupRows(rows,g) {
+    if(g.ids){const byId=new Map(rows.map(r=>[r.id,r]));return g.ids.map(id=>byId.get(id));}
     const map=new Map(rows.map(r=>[key(r.a,r.b),r]));
     return [[g.a,g.b],[g.a,g.b-90],[g.a-90,g.b],[g.a-90,g.b-90]].map(([a,b])=>map.get(key(a,b)));
   }
@@ -105,10 +106,11 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       return {...g,ids:rs.map(r=>r.id),counts:raw,netCounts:net,total,netTotal,E,Ec,
         sigma:E===null?null:Math.sqrt(Math.max(0,1-E*E)/total),sigmaC};
     });
-    const S=results.every(g=>g.E!==null)?Math.abs(sum(results.map(g=>g.sign*g.E))):null;
-    const Sc=results.every(g=>g.Ec!==null)?Math.abs(sum(results.map(g=>g.sign*g.Ec))):null;
-    const sigma=results.every(g=>g.sigma!==null)?Math.sqrt(sum(results.map(g=>g.sigma*g.sigma))):null;
-    const sigmaC=results.every(g=>g.sigmaC!==null)?Math.sqrt(sum(results.map(g=>g.sigmaC*g.sigmaC))):null;
+    const complete=results.length===4;
+    const S=complete&&results.every(g=>g.E!==null)?Math.abs(sum(results.map(g=>g.sign*g.E))):null;
+    const Sc=complete&&results.every(g=>g.Ec!==null)?Math.abs(sum(results.map(g=>g.sign*g.Ec))):null;
+    const sigma=complete&&results.every(g=>g.sigma!==null)?Math.sqrt(sum(results.map(g=>g.sigma*g.sigma))):null;
+    const sigmaC=complete&&results.every(g=>g.sigmaC!==null)?Math.sqrt(sum(results.map(g=>g.sigmaC*g.sigmaC))):null;
     return {groups:results,S,Sc,sigma,sigmaC,total:sum(rows.map(r=>r.raw)),seconds:sum(rows.map(r=>r.seconds)),controlSeconds:sum(rows.map(r=>r.controlSeconds)),
       negativeNet:rows.some(r=>r.raw-r.accidental<0)};
   }
@@ -117,22 +119,22 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     if(!Number.isFinite(v.seconds)||v.seconds<=0||v.seconds>3600||!Number.isFinite(v.gain)||v.gain<0||v.gain>100||!Number.isFinite(v.visibility)||v.visibility<0||v.visibility>1||!Number.isFinite(v.background)||v.background<0||v.background>100)throw new RangeError('Invalid simulation parameters');
     return v;
   }
-  function expectedRows(ref,c,mode='calibrated') {
-    if(mode==='replay')return ref.rows.map(r=>({...r,mean:r.raw}));
+  function expectedRows(ref,c,mode='calibrated',plan=ref) {
+    if(mode==='replay')return plan.rows.map(r=>{const source=ref.rows.find(row=>row.id===r.id);if(!source||Math.abs(r.a-source.a)>1e-8||Math.abs(r.b-source.b)>1e-8)throw new RangeError('Reference counts require matching actual angles');return {...source,...r,mean:source.raw};});
     if(!['calibrated','theory'].includes(mode))throw new Error('Unknown mode');
     c=config(c);
     const ratio=c.seconds/30;
-    return ref.rows.map(r=>{
+    return plan.rows.map(r=>{
       const signal=ref.model.countScale*probabilities(r.a,r.b,c.visibility)[0];
       const accidental=ratio*c.background*ref.model.background;
       const mean=ratio*c.gain*signal+accidental;
       return {...r,seconds:c.seconds,controlSeconds:c.seconds*10,alpha:.1,control:accidental*10,controlMean:accidental*10,accidental,mean,raw:mean,net:mean-accidental};
     });
   }
-  function simulate(ref,c,mode='calibrated') {
-    if(mode==='replay')return expectedRows(ref,c,mode);
-    c=config(c);const rng=random(c.seed);
-    return expectedRows(ref,c,mode).map(r=>{const raw=poisson(r.mean,rng),control=poisson(r.controlMean,rng),accidental=r.alpha*control;return {...r,raw,control,accidental,net:raw-accidental};});
+  function simulate(ref,c,mode='calibrated',plan=ref,rng=null) {
+    if(mode==='replay')return expectedRows(ref,c,mode,plan);
+    c=config(c);rng=rng||random(c.seed);
+    return expectedRows(ref,c,mode,plan).map(r=>{const raw=poisson(r.mean,rng),control=poisson(r.controlMean,rng),accidental=r.alpha*control;return {...r,raw,control,accidental,net:raw-accidental};});
   }
   function validateReference(ref) {
     if(ref.rows.length!==16)throw new Error('Expected 16 rows');
@@ -159,34 +161,38 @@ const hot=(key,body,extra='')=>`<g data-help="${esc(key)}" ${extra}>${body}</g>`
 const fmt=(n,d=5)=>n===null||!Number.isFinite(n)?'—':n.toFixed(d);
 function correlation(result,identity){
  let s=hot('Eraw',text(22,20,'(a) 关联函数 E', 'font-size="12" font-weight="600"'));
- s+=hot('Sraw',text(592,20,'(b) CHSH 参数 |S|', 'font-size="12" font-weight="600"'));
+ const validCHSH=result?.chsh?.valid!==false;
+ s+=hot('Sraw',text(592,20,validCHSH?'(b) CHSH 参数 |S|':'(b) 四组组合 |S*| · 非 CHSH', 'font-size="12" font-weight="600"'));
  s+=text(530,20,identity,'text-anchor="end" font-size="9" fill="#91a4a7"');
  const x=[102,228,354,480], y=v=>147-v*83;
+ const labelY=v=>Math.min(232,Math.max(75,y(v)+(Math.abs(v)>.8?(v>0?21:-12):(v>0?-12:21))));
  [-1,-.5,0,.5,1].forEach(v=>{s+=line(52,y(v),527,y(v),`stroke="${C.line}" ${v===0?'stroke-dasharray="3 4"':''}`);s+=text(41,y(v)+4,v.toFixed(1),'text-anchor="end" font-size="9"');});
  s+=hot('angles',text(290,278,'(a, b) / °','text-anchor="middle" font-size="9" fill="#9aadb3"'));
   result.groups.forEach((g,i)=>{
-  s+=hot('angles',text(x[i],251,`(${g.a}, ${g.b})`,'text-anchor="middle" font-size="10"'),`data-group="${i}"`);
+  s+=hot('angles',text(x[i],251,`(${Number(g.a.toFixed(3))}, ${Number(g.b.toFixed(3))})`,'text-anchor="middle" font-size="10"'),`data-group="${i}"`);
   if(result){const r=result.groups[i];
-   if(r.E!==null){s+=`<g data-help="Eraw" data-group="${i}"><circle cx="${x[i]-8}" cy="${y(r.E)}" r="9" fill="transparent"/>`;s+=line(x[i]-8,y(r.E-r.sigma),x[i]-8,y(r.E+r.sigma),`stroke="${C.raw}" stroke-width="1.8"`);s+=line(x[i]-12,y(r.E-r.sigma),x[i]-4,y(r.E-r.sigma),`stroke="${C.raw}"`)+line(x[i]-12,y(r.E+r.sigma),x[i]-4,y(r.E+r.sigma),`stroke="${C.raw}"`);s+=`<circle cx="${x[i]-8}" cy="${y(r.E)}" r="4" fill="${C.raw}"/>`;s+=text(x[i]-13,y(r.E)+(r.E>0?-12:21),fmt(r.E,3),'text-anchor="end" font-size="9" fill="#9abbea"');s+='</g>';}
-   if(r.Ec!==null){const py=y(Math.min(1.13,Math.max(-1.13,r.Ec)));s+=`<g data-help="Ecorr" data-group="${i}"><circle cx="${x[i]+7.5}" cy="${py}" r="9" fill="transparent"/>`;if(r.sigmaC!==null){s+=line(x[i]+7.5,y(r.Ec-r.sigmaC),x[i]+7.5,y(r.Ec+r.sigmaC),`stroke="${C.corr}" stroke-width="1.8"`)+line(x[i]+4,y(r.Ec-r.sigmaC),x[i]+11,y(r.Ec-r.sigmaC),`stroke="${C.corr}"`)+line(x[i]+4,y(r.Ec+r.sigmaC),x[i]+11,y(r.Ec+r.sigmaC),`stroke="${C.corr}"`);}s+=`<rect x="${x[i]+4}" y="${py-3.5}" width="7" height="7" rx="1" fill="${C.corr}"/>`;s+=text(x[i]+13,py+(r.Ec>0?-12:21),fmt(r.Ec,3),'font-size="9" fill="#80d2b3"');s+='</g>';}
+   if(r.E!==null){s+=`<g data-help="Eraw" data-group="${i}"><circle cx="${x[i]-8}" cy="${y(r.E)}" r="9" fill="transparent"/>`;s+=line(x[i]-8,y(r.E-r.sigma),x[i]-8,y(r.E+r.sigma),`stroke="${C.raw}" stroke-width="1.8"`);s+=line(x[i]-12,y(r.E-r.sigma),x[i]-4,y(r.E-r.sigma),`stroke="${C.raw}"`)+line(x[i]-12,y(r.E+r.sigma),x[i]-4,y(r.E+r.sigma),`stroke="${C.raw}"`);s+=`<circle cx="${x[i]-8}" cy="${y(r.E)}" r="4" fill="${C.raw}"/>`;s+=text(x[i]-13,labelY(r.E),fmt(r.E,3),'text-anchor="end" font-size="9" fill="#9abbea"');s+='</g>';}
+   if(r.Ec!==null){const py=y(Math.min(1.13,Math.max(-1.13,r.Ec)));s+=`<g data-help="Ecorr" data-group="${i}"><circle cx="${x[i]+7.5}" cy="${py}" r="9" fill="transparent"/>`;if(r.sigmaC!==null){s+=line(x[i]+7.5,y(r.Ec-r.sigmaC),x[i]+7.5,y(r.Ec+r.sigmaC),`stroke="${C.corr}" stroke-width="1.8"`)+line(x[i]+4,y(r.Ec-r.sigmaC),x[i]+11,y(r.Ec-r.sigmaC),`stroke="${C.corr}"`)+line(x[i]+4,y(r.Ec+r.sigmaC),x[i]+11,y(r.Ec+r.sigmaC),`stroke="${C.corr}"`);}s+=`<rect x="${x[i]+4}" y="${py-3.5}" width="7" height="7" rx="1" fill="${C.corr}"/>`;s+=text(x[i]+13,labelY(r.Ec),fmt(r.Ec,3),'font-size="9" fill="#80d2b3"');s+='</g>';}
   }
  });
  s+=`<circle cx="94" cy="43" r="3.5" fill="${C.raw}"/>`+hot('sigmaEraw',text(103,47,'当前 raw ±1σ','font-size="9"'));
  s+=`<rect x="229" y="40" width="7" height="7" rx="1" fill="${C.corr}"/>`+hot('sigmaEcorr',text(244,47,'当前 corr ±1σ','font-size="9"'));
  s+=line(559,35,559,267,'stroke="#30443f"');
- const sx=v=>621+v/3.08*344;
- [0,1,2,2*Math.SQRT2].forEach(v=>{s+=line(sx(v),60,sx(v),242,`stroke="${v===2?'#cba780':v>2?'#a2b6c1':'#253a34'}" stroke-dasharray="${v===2?'5 5':v>2?'2 4':'0'}"`);});
+ const limit=Math.max(validCHSH?3.08:4.1,(result?.S??0)+(result?.sigma??0)+.1,(result?.Sc??0)+(result?.sigmaC??0)+.1),sx=v=>621+v/limit*344;
+ (validCHSH?[0,1,2,2*Math.SQRT2]:[0,1,2,3,4]).forEach(v=>{s+=line(sx(v),60,sx(v),242,`stroke="#30443f" stroke-dasharray="3 4"`);});
+ if(validCHSH){
  s+=hot('classic',text(sx(2),48,'经典 2','text-anchor="middle" font-size="9" fill="#b99e7a"'));
  s+=hot('quantum',text(sx(2*Math.SQRT2),48,'量子 2√2','text-anchor="middle" font-size="9" fill="#8da5b2"'));
+ }else s+=text(621,48,'不适用 CHSH 经典界限与量子界限','font-size="9" fill="#e0bd7d"');
  const vals=[{v:result?.S??null,label:'本次原始计数',sigma:result?.sigma,color:C.raw},{v:result?.Sc??null,label:'本次背景校正',sigma:result?.sigmaC,color:C.corr}];
  vals.forEach((r,i)=>{const yy=103+i*90;s+=`<g data-help="${i?'Scorr':'Sraw'}"><rect x="615" y="${yy-29}" width="370" height="49" fill="transparent"/>`;
   s+=text(621,yy-14,r.label,'font-size="10"');s+=text(977,yy-14,fmt(r.v)+(r.sigma!==null&&r.sigma!==undefined?' ± '+fmt(r.sigma):''),'font-size="10" text-anchor="end"');
   s+=`<rect x="621" y="${yy}" width="344" height="8" rx="4" fill="#263c35"/>`;
-  if(r.v!==null){const v=Math.min(3.08,Math.max(0,r.v));s+=`<rect x="621" y="${yy}" width="${sx(v)-621}" height="8" rx="4" fill="${r.color}" opacity=".3"/><circle cx="${sx(v)}" cy="${yy+4}" r="4.5" fill="${r.color}"/>`;if(r.sigma!==null&&r.sigma!==undefined){s+=line(sx(Math.max(0,v-r.sigma)),yy+4,sx(Math.min(3.08,v+r.sigma)),yy+4,`stroke="${r.color}" stroke-width="2"`);}}
+  if(r.v!==null){const v=Math.max(0,r.v);s+=`<rect x="621" y="${yy}" width="${sx(v)-621}" height="8" rx="4" fill="${r.color}" opacity=".3"/><circle cx="${sx(v)}" cy="${yy+4}" r="4.5" fill="${r.color}"/>`;if(r.sigma!==null&&r.sigma!==undefined){s+=line(sx(Math.max(0,v-r.sigma)),yy+4,sx(v+r.sigma),yy+4,`stroke="${r.color}" stroke-width="2"`);}}
  s+='</g>';});
  s+=hot('sigmaScorr',text(621,277,'误差棒为当前数据的 ±1σ，按真实数值绘制，未放大。','font-size="9" fill="#9caeb1"'));
  if(!result)s+=text(294,155,'等待完成本次模拟','text-anchor="middle" font-size="12" fill="#b4c1c3"');
- return svg(1000,293,'关联函数与 CHSH 参数比较',s,identity+'；关联函数纵轴为 E，CHSH 原始与校正误差均包含独立泊松统计，校正项传播背景误差。');
+ return svg(1000,293,validCHSH?'关联函数与 CHSH 参数比较':'关联函数与非 CHSH 四组组合值',s,identity+'；关联函数纵轴为 E，原始与校正组合值的误差均包含独立泊松统计，校正项传播背景误差。'+(validCHSH?'':'本次角度不构成 CHSH 配对，不适用 CHSH 界限。'));
 }
 function counts(result,identity){
  if(!result)return svg(680,370,'等待联合计数结果',text(340,185,'请先完成一次采集','text-anchor="middle" fill="#a5b5ba"'));
@@ -203,7 +209,7 @@ function counts(result,identity){
    g.counts.forEach((n,j)=>{const x=start+j*27,top=y(n),err=Math.sqrt(n);s+=`<g data-help="${['Npp','Npm','Nmp','Nmm'][j]}" data-group="${i}" data-outcome="${j}"><rect x="${x}" y="${Math.min(top,278)}" width="20" height="${Math.max(12,290-top)}" fill="transparent"/><rect x="${x}" y="${top}" width="20" height="${290-top}" rx="1.5" fill="${colors[j]}"/><rect x="${x}" y="${top}" width="20" height="${290-top}" fill="url(#pat${j})"/>`;
     s+=`<g data-help="countError" data-group="${i}" data-outcome="${j}">`;s+=line(x+10,y(n-err),x+10,y(n+err),'stroke="#d1e6dd" stroke-width="1"')+line(x+6,y(n+err),x+14,y(n+err),'stroke="#d1e6dd"')+line(x+6,y(n-err),x+14,y(n-err),'stroke="#d1e6dd"');s+='</g>';
     s+=text(x+10,y(n+err)-7,n,'font-size="8" text-anchor="middle" fill="#b4cac2"');s+='</g>';
-   });s+=hot('angles',text(start+51,312,`(${g.a}°, ${g.b}°)`,'font-size="10" text-anchor="middle"'),`data-group="${i}"`);
+   });s+=hot('angles',text(start+51,312,`(${Number(g.a.toFixed(3))}°, ${Number(g.b.toFixed(3))}°)`,'font-size="10" text-anchor="middle"'),`data-group="${i}"`);
  });
  s+=hot('angles',text(358,342,'(Alice a, Bob b) · 每柱对应一次独立设置','text-anchor="middle" font-size="10" fill="#9aadb3"'));
  return svg(680,370,'四组联合符合计数与泊松误差棒',s,identity+'；每根柱的误差为计数平方根。');
@@ -211,20 +217,19 @@ function counts(result,identity){
 function heatmap(rows,identity){
  if(!rows)return svg(500,370,'等待二维计数分布',text(250,185,'请先完成一次采集','text-anchor="middle" fill="#a5b5ba"'));
  const max=Math.max(4000,Math.ceil(Math.max(...rows.map(r=>r.raw))/1000)*1000);
- const as=[...new Set(rows.map(r=>r.a))].sort((a,b)=>a-b),bs=[...new Set(rows.map(r=>r.b))].sort((a,b)=>a-b);
- let s=hot('a',text(21,24,'Alice a / °','font-size="10"'))+text(474,24,identity,'font-size="9" text-anchor="end" fill="#96a9ac"');
+ let s=text(21,24,'独立测量组 / 输出','font-size="10"')+text(474,24,identity,'font-size="9" text-anchor="end" fill="#96a9ac"');
  s+='<defs><linearGradient id="heat-scale" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#edf6f2"/><stop offset="1" stop-color="#187d6e"/></linearGradient></defs>';
- as.forEach((a,i)=>{s+=hot('a',text(60,95+i*53,`${a}°`,'text-anchor="end" font-size="10"'),`data-row="${rows.find(r=>r.a===a).id}"`);bs.forEach((b,j)=>{
- const r=rows.find(r=>r.a===a&&r.b===b),f=r.raw/max;
+ [0,1,2,3].forEach(i=>{s+=hot('angles',text(60,95+i*53,`E${i+1}`,'text-anchor="end" font-size="10"'),`data-group="${i}"`);[0,1,2,3].forEach(j=>{
+ const r=rows.find(r=>r.id===i*4+j+1),f=r.raw/max;
  const col=[237,246,242].map((c,k)=>Math.round(c+([24,125,110][k]-c)*f));
  const x=77+j*78,y=65+i*53;
  s+=`<g data-help="N" data-row="${r.id}"><rect x="${x}" y="${y}" width="74" height="49" rx="3" fill="rgb(${col.join(',')})"/>`+text(x+37,y+30,r.raw,`text-anchor="middle" font-size="12" font-weight="500" fill="${f>.57?'#ffffff':'#5d8578'}"`)+'</g>';
  });});
- bs.forEach((b,j)=>{s+=hot('b',text(114+j*78,298,`${b}°`,'text-anchor="middle" font-size="10"'),`data-row="${rows.find(r=>r.b===b).id}"`);});
- s+=hot('b',text(231,322,'Bob b / °','text-anchor="middle" font-size="10"'));
+ ['++','+−','−+','−−'].forEach((label,j)=>{s+=text(114+j*78,298,label,'text-anchor="middle" font-size="10"');});
+ s+=text(231,322,'四种输出 · 每格为独立计数','text-anchor="middle" font-size="10"');
  s+=`<g data-help="heatScale"><rect x="410" y="65" width="9" height="208" rx="3" fill="url(#heat-scale)"/>`+text(427,74,max,'font-size="9"')+text(427,173,max/2,'font-size="9"')+text(427,273,0,'font-size="9"')+'</g>';
- s+=text(231,352,'原始符合计数 · 不含任何插值点','text-anchor="middle" font-size="9" fill="#9aadb3"');
- return svg(500,370,'偏振分析角度与原始计数二维分布',s,identity+'；固定16个设置，横轴Bob角度，纵轴Alice角度。');
+ s+=text(231,352,'原始符合计数 · 重复角度按独立设置保留','text-anchor="middle" font-size="9" fill="#9aadb3"');
+ return svg(500,370,'四组测量与四种输出的原始计数分布',s,identity+'；16次独立计数，横轴为输出，纵轴为测量组；实际角度见每格数据。');
 }
 window.LabCharts={correlation,counts,heatmap};
 })();
@@ -243,11 +248,11 @@ const rim=new T.DirectionalLight('#b6d8e5',1.7);rim.position.set(-4,8,-5);scene.
 function material(color,metal=0,rough=.6,extra={}){return new T.MeshStandardMaterial({color,metalness:metal,roughness:rough,...extra});}
 const mats={black:material('#252c2a',.46,.42),dark:material('#070c0c',.2,.64),silver:material('#a3b4ae',.72,.28),base:material('#59645f',.48,.39),ivory:material('#9ba397',.25,.5),rubber:material('#111817',0,.9),glass:material('#8fb7ad',.3,.15,{transparent:true,opacity:.43,side:T.DoubleSide}),red:material('#7f312b',.2,.42),cable:material('#cccaba',.1,.72),ink:material('#243029',.2,.7)};
 const white=new T.MeshStandardMaterial({color:'#dfe7dc',roughness:.8});
-const objects=[],picking=[],analyzers={},labelEntries=[],moving=[];
+const objects=[],picking=[],analyzers={},labelEntries=[],moving=[],assemblyWires=[];
 function mesh(g,m,p,x=0,y=0,z=0){const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;p.add(o);return o;}
 function box(p,w,h,d,m,x=0,y=0,z=0){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
 function cyl(p,r,h,m,x=0,y=0,z=0,r2=r){return mesh(new T.CylinderGeometry(r,r2,h,32),m,p,x,y,z);}
-function lineTube(p,points,r,mat){const curve=new T.CatmullRomCurve3(points.map(a=>new T.Vector3(...a)));return mesh(new T.TubeGeometry(curve,50,r,6,false),mat,p);}
+function lineTube(p,points,r,mat){const curve=new T.CatmullRomCurve3(points.map(a=>new T.Vector3(...a)));const wire=mesh(new T.TubeGeometry(curve,50,r,6,false),mat,p);if(p===lab)assemblyWires.push(wire);return wire;}
 function texture(draw,w=256,h=256){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;tx.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tx;}
 const tableTex=texture((c,w,h)=>{c.fillStyle='#35413d';c.fillRect(0,0,w,h);let seed=43;for(let i=0;i<9500;i++){seed=(seed*1664525+1013904223)>>>0;const x=seed%w;seed=(seed*1664525+1013904223)>>>0;const y=seed%h;c.fillStyle=i%2?'#72807a2b':'#d8e6dc18';c.fillRect(x,y,1,1);}for(let x=16;x<w;x+=32)for(let y=16;y<h;y+=32){c.fillStyle='#80908a';c.beginPath();c.arc(x,y+1,3.1,0,TAU);c.fill();c.fillStyle='#202b28';c.beginPath();c.arc(x,y,2.3,0,TAU);c.fill();c.fillStyle='#0b1110';c.beginPath();c.arc(x,y-.45,1.6,0,TAU);c.fill();}});
 tableTex.wrapS=tableTex.wrapT=T.RepeatWrapping;tableTex.repeat.set(8.0,5.23);const tableMat=material('#ffffff',.32,.53,{map:tableTex});
@@ -288,7 +293,7 @@ function laser(){const g=part('laser','405 nm 激光器','白色激光头与后�
  lineTube(lab,[[-4.3,TOP+.30,-2.65],[-4.25,TOP+.08,-2.13],[-3.30,TOP+.075,-2.11],[-3.04,Y-.11,-2.78]],.024,mats.black);
 }
 laser();
-optic('pump-hwp-input','半波片 · 入射段','位于白色激光头和 PBS 之间。保留视频中侧向黑色小镜架，不移动器件中心。',-1.28,-3.08,Math.PI/2,'edge');
+optic('pump-hwp-input','半波片 · 入射段','位于白色激光头和 PBS 之间。使用与第 6 号四分之一波片相同的圆形调节镜架，保留半波片身份、原位置与入射光路朝向。',-1.28,-3.08,Math.PI/2);
 const pbs=part('pbs','PBS 偏振分束器','泵浦纵向链路起点；位置按视频，名称对应用户标注图。立方体置于黑色圆形支架。',0,-3.08,'pbs');mount(pbs,0,0,Y,true);const platform=cyl(pbs,.235,.07,mats.black,0,Y-.13,0);box(pbs,.24,.24,.24,mats.glass,0,Y+.02,0);const diagonal=box(pbs,.01,.24,.32,mats.silver,0,Y+.02,0);diagonal.rotation.y=Math.PI/4;register(pbs);
 optic('pump-hwp','半波片 · 泵浦段','视频中央纵向第一只圆形镜架；银色立柱、黑色调节机构。',0,-2.28,0);
 optic('pump-qwp','零级四分之一波片','视频中央纵向第二只圆形镜架。镜架、立柱和基座位置保持不变。',0,-1.37,0);
@@ -299,15 +304,22 @@ prism.rotation.y=Math.PI;register(mirror);
 // Six circular mounts per arm follow the visible video. Names use the earlier annotated project image;
 // no hidden exact dimensions or original meshes are claimed.
 const armItems=[['lens','LENS 透镜'],['qwp','四分之一波片'],['hwp','半波片'],['polarizer','偏振片'],['filter','滤波片'],['collimator','准直器']];
-for(const side of [-1,1]){const letter=side<0?'A':'B';armItems.forEach(([id,name],i)=>{const g=optic(`${letter}-${id}`,`${letter} 端 · ${name}`,`左右对称分析臂第 ${i+1} 个圆形镜架。镜架为黑色、支杆为银色；保持视频可见顺序与外观。${id==='hwp'||id==='polarizer'?'可演示分析轴转动，器件位置不变。':''}`,side*(.84+i*.64),Z,Math.PI/2);if(id==='hwp'||id==='polarizer'){g.userData.channel=letter;analyzers[letter]=analyzers[letter]||[];analyzers[letter].push(g);}});
+for(const side of [-1,1]){const letter=side<0?'A':'B';armItems.forEach(([id,name],i)=>{const g=optic(`${letter}-${id}`,`${letter} 端 · ${name}`,`左右对称分析臂第 ${i+1} 个圆形镜架。${id==='hwp'?'机械角 θ 对应分析角 2θ，参与符合计数计算。':id==='polarizer'?'偏振片固定为 0°，测量方向由半波片设定。':'保持原有镜架、支杆及光学布局。'}`,side*(.84+i*.64),Z,Math.PI/2);if(id==='hwp'||id==='polarizer'){g.userData.channel=letter;analyzers[letter]=analyzers[letter]||[];analyzers[letter].push(g);}});
  const g=part(`${letter}-receiver`,`${letter} 接收器`,`视频${side<0?'左':'右'}端接收光学头、调节旋钮与浅色输出线。`,side*5.17,Z,'receiver',Math.PI/2);mount(g,0,0,Y,true);box(g,.44,.38,.40,mats.black,0,Y,0);mesh(new T.CircleGeometry(.108,32),mats.dark,g,0,Y,-.207);for(const x of [-.2,.2]){const b=cyl(g,.054,.12,mats.red,x,Y+.16,.22);b.rotation.x=Math.PI/2;}const outlet=cyl(g,.06,.16,mats.silver,0,Y,.3);outlet.rotation.x=Math.PI/2;register(g);
- lineTube(lab,[[side*5.24,Y,Z],[side*5.86,3.05,2.05],[side*5.9,TOP+.08,3.18],[side*4.75,TOP+.07,3.52],[side*2.7,TOP+.07,3.40],[side*1.2,TOP+.1,3.02]],.017,mats.cable);
 }
 const dump=part('beam-dump','遮光终端','视频纵向轴前侧的黑色吸收挡块。未在模型里删除或以光子动画代替。',0,2.67,'dump');mount(dump,0,0,Y-.12);box(dump,.29,.22,.56,mats.black,0,Y-.08,0);register(dump);
 const spare=part('right-stop','后侧遮光块','视频后右侧独立支杆上的黑色矩形器件，保留其外观与位置；具体型号未从视频推断。',2.65,-3.08,'stop');mount(spare,0,0);box(spare,.66,.30,.14,mats.black,0,Y,0);register(spare);
 box(lab,1.70,.012,1.48,mats.rubber,-5.04,TOP+.045,.20);
-const scope=part('counter','符合计数电子设备','视频左侧台面的浅色电子设备，演示计数结果由 CHSH 数据模块计算，不以屏幕贴图伪造实验结果。',-8.3,-.7,'electronics');box(scope,1.70,.62,1.95,mats.ivory,0,2.90,0);for(let x=-.7;x<.75;x+=.08)box(scope,.024,.012,.85,mats.dark,x,3.222,-.25);box(scope,1.48,.40,.02,mats.black,0,2.94,1.0);decal(scope,'COINCIDENCE COUNTER',1.1,.23,[0,2.95,1.02],[0,0,0],'#202a25','#b8c4aa');register(scope);
-lineTube(lab,[[-5.1,Y,Z],[-5.8,TOP+.1,.48],[-7.2,2.78,.15],[-8.0,2.76,.29]],.02,mats.cable);
+for(const side of [-1,1]){
+ const letter=side<0?'A':'B';
+ const scope=part(side<0?'counter':'counter-B',`${letter} 端符合计数设备`,`${letter} 端侧台上的计数设备。两侧共用现有 CHSH 计数模型，不重复累加计数。`,side*8.3,-.7,'electronics');
+ box(scope,1.70,.62,1.95,mats.ivory,0,2.90,0);
+ for(let x=-.7;x<.75;x+=.08)box(scope,.024,.012,.85,mats.dark,x,3.222,-.25);
+ box(scope,1.48,.40,.02,mats.black,0,2.94,1.0);
+ decal(scope,'COINCIDENCE COUNTER',1.1,.23,[0,2.95,1.02],[0,0,0],'#202a25','#b8c4aa');
+ register(scope);
+ lineTube(lab,[[side*5.1,Y,Z],[side*5.8,TOP+.1,.48],[side*7.2,2.78,.15],[side*8.0,2.76,.29]],.02,mats.cable);
+}
 // Physical objects end here. Beam overlays are hidden by default, and never replace hardware.
 const beamGroup=new T.Group();scene.add(beamGroup);beamGroup.visible=false;const beamMats=[new T.MeshBasicMaterial({color:'#a884d5',transparent:true,opacity:.38,depthWrite:false}),new T.MeshBasicMaterial({color:'#b65b52',transparent:true,opacity:.40,depthWrite:false})];
 const paths=[new T.CatmullRomCurve3([new T.Vector3(-2.1,Y,-3.08),new T.Vector3(0,Y,-3.08),new T.Vector3(0,Y,Z)],false,'catmullrom',0),new T.LineCurve3(new T.Vector3(0,Y,Z),new T.Vector3(-5.1,Y,Z)),new T.LineCurve3(new T.Vector3(0,Y,Z),new T.Vector3(5.1,Y,Z))];
@@ -324,10 +336,10 @@ const outline=new T.Box3Helper(new T.Box3(),0x80b499);outline.visible=false;outl
 function resetPreset(name){const p=presets[name]||presets.overview;camera.position.fromArray(p.p);camera.lookAt(new T.Vector3(...p.t));camera.rotation.order='YXZ';activePreset=name;document.querySelectorAll('[data-preset]').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));}
 function clearPreset(){if(activePreset){activePreset=null;document.querySelectorAll('[data-preset]').forEach(b=>b.classList.remove('active'));}}
 function notify(s){document.dispatchEvent(new CustomEvent('lab-notice',{detail:s}));}
-function choose(g){selected=g;outline.box.setFromObject(g);outline.visible=true;document.dispatchEvent(new CustomEvent('optic-selected',{detail:{id:g.userData.id,name:g.userData.name,description:g.userData.description,channel:g.userData.channel||null,index:objects.indexOf(g)+1}}));}
-function selectAt(x,y){pointer.set(x/innerWidth*2-1,-y/innerHeight*2+1);raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObjects(picking,false).find(h=>h.object.userData.part);if(hit)choose(hit.object.userData.part);}
-function setAngle(channel,degrees){for(const g of analyzers[channel]||[]){g.userData.head.rotation.z=-degrees*Math.PI/180;g.userData.angle=degrees;}if(selected&&selected.userData.channel===channel)outline.box.setFromObject(selected);}
-function inputBusy(){const a=document.activeElement;return document.querySelector('dialog[open]')||a&&(a.matches('input,textarea,select')||a.isContentEditable);}
+function choose(g){selected=g;outline.box.setFromObject(g);outline.visible=g.visible;document.dispatchEvent(new CustomEvent('optic-selected',{detail:{id:g.userData.id,name:g.userData.name,description:g.userData.description,channel:g.userData.channel||null,index:objects.indexOf(g)+1}}));}
+function selectAt(x,y){pointer.set(x/innerWidth*2-1,-y/innerHeight*2+1);raycaster.setFromCamera(pointer,camera);if(window.LabAssemblyScene?.pick(raycaster))return;const hit=raycaster.intersectObjects(picking,false).find(h=>h.object.userData.part?.visible);if(hit)choose(hit.object.userData.part);}
+function setAngle(channel,degrees){for(const g of analyzers[channel]||[]){const hwp=g.userData.id.endsWith('-hwp');g.userData.head.rotation.z=hwp?-degrees/2*Math.PI/180:0;g.userData.angle=hwp?degrees/2:0;}if(selected&&selected.userData.channel===channel)outline.box.setFromObject(selected);}
+function inputBusy(){const a=document.activeElement;return document.querySelector('dialog[open]')||a&&(a.matches('input,textarea,select,button,summary,a')||a.isContentEditable);}
 window.addEventListener('keydown',e=>{if(inputBusy())return;const c=e.code;if(['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ShiftLeft','ShiftRight','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c)){e.preventDefault();keys.add(c);}if(e.repeat)return;if(c==='KeyR')resetPreset('overview');if(/^Digit[1-5]$/.test(c))resetPreset(['overview','top','source','alice','bob'][Number(c.slice(-1))-1]);if(c==='Tab'){e.preventDefault();document.body.classList.toggle('clean');}if(c==='Escape'){document.body.classList.remove('clean');keys.clear();drag=null;}if(c==='KeyL')$('#labels-toggle').click();if(c==='KeyB')$('#beam-toggle').click();});
 window.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>{keys.clear();drag=null;});document.addEventListener('visibilitychange',()=>{keys.clear();drag=null;});
 host.addEventListener('contextmenu',e=>e.preventDefault());host.addEventListener('pointerdown',e=>{host.focus({preventScroll:true});keys.clear();drag={x:e.clientX,y:e.clientY,button:e.button,startX:e.clientX,startY:e.clientY};moved=false;host.setPointerCapture(e.pointerId);});
@@ -335,32 +347,33 @@ host.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.
 host.addEventListener('pointerup',e=>{if(drag&&!moved&&drag.button===0)selectAt(e.clientX,e.clientY);drag=null;});host.addEventListener('pointercancel',()=>drag=null);
 host.addEventListener('wheel',e=>{e.preventDefault();const d=new T.Vector3();camera.getWorldDirection(d);camera.position.addScaledVector(d,-Math.sign(e.deltaY)*.65);clampCamera();clearPreset();},{passive:false});
 function clampCamera(){camera.position.x=T.MathUtils.clamp(camera.position.x,-19,19);camera.position.z=T.MathUtils.clamp(camera.position.z,-8.6,23);camera.position.y=T.MathUtils.clamp(camera.position.y,.7,25);if(Math.abs(camera.position.x)<6.65&&Math.abs(camera.position.z)<4.52)camera.position.y=Math.max(camera.position.y,4.14);}
-function setBeams(on){beamGroup.visible=Boolean(on);$('#beam-toggle').setAttribute('aria-pressed',String(beamGroup.visible));}
+function setBeams(on){beamGroup.visible=Boolean(on)&&!window.LabAssemblyScene?.active;$('#beam-toggle').setAttribute('aria-pressed',String(beamGroup.visible));}
 function setLabels(on){labelsVisible=on;$('#labels-toggle').setAttribute('aria-pressed',String(on));labelEntries.forEach(l=>l.el.hidden=!on);}
-function updateLabels(){const v=new T.Vector3();for(const {g,el} of labelEntries){if(!labelsVisible){el.hidden=true;continue;}g.getWorldPosition(v);v.y=Y+.5;v.project(camera);const x=(v.x+1)/2*innerWidth,y=(1-v.y)/2*innerHeight;el.hidden=v.z>1||v.z< -1||x<5||x>innerWidth-10||y<90||y>innerHeight-70;if(!el.hidden)el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;}}
+function updateLabels(){const v=new T.Vector3();for(const {g,el} of labelEntries){if(!labelsVisible||!g.visible||window.LabAssemblyScene?.active){el.hidden=true;continue;}g.getWorldPosition(v);v.y=Y+.5;v.project(camera);const x=(v.x+1)/2*innerWidth,y=(1-v.y)/2*innerHeight;el.hidden=v.z>1||v.z< -1||x<5||x>innerWidth-10||y<90||y>innerHeight-70;if(!el.hidden)el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;}}
 const map=$('#minimap'),mc=map.getContext('2d');function minimap(){const w=map.width,h=map.height;mc.clearRect(0,0,w,h);const sx=w/22,sy=h/12;const project=(x,z)=>[w/2+x*sx,h/2+z*sy];mc.fillStyle='#a4bcb222';mc.strokeStyle='#91aea761';const a=project(-6.2,-4.1);mc.fillRect(a[0],a[1],12.4*sx,8.2*sy);mc.strokeRect(a[0],a[1],12.4*sx,8.2*sy);for(const g of objects){const [x,y]=project(g.position.x,g.position.z);mc.fillStyle=g===selected?'#dcebbe':'#97b4a3';mc.beginPath();mc.arc(x,y,2.4,0,TAU);mc.fill();}let [x,y]=project(camera.position.x,camera.position.z);x=T.MathUtils.clamp(x,9,w-9);y=T.MathUtils.clamp(y,9,h-9);const dir=new T.Vector3();camera.getWorldDirection(dir);const angle=Math.atan2(dir.z,dir.x);mc.save();mc.translate(x,y);mc.rotate(angle);mc.fillStyle='#9be6c2';mc.beginPath();mc.moveTo(9,0);mc.lineTo(-6,-5);mc.lineTo(-3,0);mc.lineTo(-6,5);mc.closePath();mc.fill();mc.restore();$('#camera-height').textContent=`H ${camera.position.y.toFixed(1)}`;$('#camera-position').textContent=`X ${camera.position.x.toFixed(1)} · Z ${camera.position.z.toFixed(1)}`;}
 document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>resetPreset(b.dataset.preset)));$('#labels-toggle').addEventListener('click',()=>setLabels(!labelsVisible));$('#beam-toggle').addEventListener('click',()=>{setBeams(!beamGroup.visible);});$('#immersive').addEventListener('click',()=>document.body.classList.toggle('clean'));
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});resetPreset('overview');
 function animate(ms){if(!fpsTime)fpsTime=ms;requestAnimationFrame(animate);const dt=Math.min((ms-lastTime)/1000||0,.06);lastTime=ms;if(!inputBusy()&&keys.size){let forward=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));let right=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));let up=Number(keys.has('KeyE'))-Number(keys.has('KeyQ'));const v=new T.Vector3(-Math.sin(camera.rotation.y)*forward+Math.cos(camera.rotation.y)*right,up,-Math.cos(camera.rotation.y)*forward-Math.sin(camera.rotation.y)*right);if(v.lengthSq()>0){v.normalize().multiplyScalar((keys.has('ShiftLeft')||keys.has('ShiftRight')?8.0:3.6)*dt);camera.position.add(v);clampCamera();clearPreset();}}if(beamGroup.visible)moving.forEach(({dot,curve,offset})=>dot.position.copy(curve.getPoint((ms*.00020+offset)%1)));if(ms-labelTime>90){updateLabels();minimap();labelTime=ms;}renderer.render(scene,camera);frames++;if(ms-fpsTime>1000){frames=0;fpsTime=ms;}}
 requestAnimationFrame(animate);$('#loading').style.display='none';
-window.Lab3D={setAngle,setBeams,select:id=>{const g=objects.find(g=>g.userData.id===id);if(g)choose(g);return !!g;},preset:resetPreset,clearKeys:()=>keys.clear(),snapshot:()=>({ready:true,revision:T.REVISION,camera:{position:camera.position.toArray(),rotation:[camera.rotation.x,camera.rotation.y,camera.rotation.z]},selected:selected?.userData.id||null,labels:labelsVisible,beams:beamGroup.visible,prism:{center:prism.getWorldPosition(new T.Vector3()).toArray(),tip:prism.localToWorld(new T.Vector3().fromBufferAttribute(prism.geometry.attributes.position,0)).toArray()},parts:objects.map(g=>({id:g.userData.id,name:g.userData.name,position:g.position.toArray(),kind:g.userData.kind})),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles}),screenPosition:id=>{const g=objects.find(g=>g.userData.id===id);if(!g)return null;const v=new T.Vector3();g.getWorldPosition(v);v.y=Y;v.project(camera);return {x:(v.x+1)*innerWidth/2,y:(1-v.y)*innerHeight/2,depth:v.z};}};
+window.LabAssemblyScene=createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,keys,outline,setBeams,setLabels,resetPreset,clearPreset});
+window.Lab3D={setAngle,setBeams,select:id=>{const g=objects.find(g=>g.userData.id===id);if(g)choose(g);return !!g;},preset:resetPreset,clearKeys:()=>keys.clear(),snapshot:()=>({ready:true,revision:T.REVISION,camera:{position:camera.position.toArray(),rotation:[camera.rotation.x,camera.rotation.y,camera.rotation.z]},selected:selected?.userData.id||null,labels:labelsVisible,beams:beamGroup.visible,prism:{center:prism.getWorldPosition(new T.Vector3()).toArray(),tip:prism.localToWorld(new T.Vector3().fromBufferAttribute(prism.geometry.attributes.position,0)).toArray()},parts:objects.map(g=>({id:g.userData.id,name:g.userData.name,position:g.position.toArray(),rotation:[g.rotation.x,g.rotation.y,g.rotation.z],kind:g.userData.kind,mechanicalAngle:g.userData.angle??null,headRotation:g.userData.head?.rotation.z??null})),wires:assemblyWires.map(wire=>({visible:wire.visible,points:wire.geometry.parameters.path.points.map(p=>p.toArray())})),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles}),screenPosition:id=>{const g=objects.find(g=>g.userData.id===id);if(!g)return null;const v=new T.Vector3();g.getWorldPosition(v);v.y=Y;v.project(camera);return {x:(v.x+1)*innerWidth/2,y:(1-v.y)*innerHeight/2,depth:v.z};}};
 })();
 </script><script>(function(){
 'use strict';
 const $=s=>document.querySelector(s), dialog=$('#chart-help-dialog');
 const views={
- 'chart-correlation':{title:'图 1 · 关联函数与 CHSH 参数',purpose:'左图比较四组分析角度下的关联函数 E，观察同号与异号结果的相对占比，以及背景扣除带来的变化。右图把四组关联组合成 |S|，与局域隐变量界限 2 和量子理论上限 2√2 比较；误差棒表示本次数据的统计不确定度。',keys:['angles','Eraw','Ecorr','sigmaEraw','sigmaEcorr','Sraw','Scorr','sigmaSraw','sigmaScorr','classic','quantum']},
+ 'chart-correlation':{title:'图 1 · 关联函数与四组组合值',purpose:'左图比较四组实际分析角度下的关联函数 E，右图把四组关联组合成 |E1−E2+E3+E4|。只有四组满足 CHSH 配对关系时才与经典界限 2 和量子界限 2√2 比较；否则记为 |S*|。误差棒表示本次数据的统计不确定度。',keys:['angles','Eraw','Ecorr','sigmaEraw','sigmaEcorr','Sraw','Scorr','sigmaSraw','sigmaScorr','classic','quantum']},
  'chart-counts':{title:'图 2 · 四组联合符合计数',purpose:'比较每组基本角度下 ++、+−、−+、−− 四种分析方向组合的计数。这些计数是计算关联函数 E 的输入；柱高显示数量，误差棒显示计数的泊松统计波动。每柱对应一次独立设置。',keys:['angles','Npp','Npm','Nmp','Nmm','countError','total']},
- 'chart-heatmap':{title:'图 3 · 分析角度与计数分布',purpose:'把 16 组设置按 Alice 和 Bob 的实际分析角度排列，用颜色快速观察哪些角度组合计数较高或较低。每格对应一次采集，格内为原始计数；这里没有插值，颜色本身不能单独证明 CHSH 不等式被违反。',keys:['a','b','N','heatScale']},
+ 'chart-heatmap':{title:'图 3 · 测量组与输出计数分布',purpose:'纵轴为四组 E，横轴为 ++、+−、−+、−− 四种输出。每格对应一次独立采集，格内为原始计数，详情保留实际分析角度。重复角度不合并；颜色本身不能单独证明 CHSH 不等式被违反。',keys:['a','b','N','heatScale']},
  'table-settings':{title:'表 1 · 分析方向与背景校正',purpose:'逐项记录 16 组采集的角度、时长、主计数和独立背景计数，展示如何从原始计数得到背景估计及净计数，便于核对后续计算。',keys:['setting','a','b','t','N','M','accidental','net']},
  'table-counts':{title:'表 2 · 四组联合符合计数',purpose:'把 16 次独立采集整理为四组基本角度，每组包含四种方向组合，方便核对 E 的分子与分母。',keys:['a','b','Npp','Npm','Nmp','Nmm','total']},
  'table-errors':{title:'表 3 · 关联函数与标准误',purpose:'列出每组角度的原始与校正关联函数、统计标准误和 CHSH 符号系数，用来比较关联强弱、统计精度以及各组对 S 的贡献。',keys:['a','b','Eraw','Ecorr','sigmaEraw','sigmaEcorr','relative','sign']},
- 'table-summary':{title:'表 4 · CHSH 结果与理论界限',purpose:'汇总本次原始和背景校正后的 |S| 及标准误，与两条理论界限比较。模拟中 |S| 超过 2 表示该组模拟统计呈现 CHSH 违反，不能替代真实仪器中的实验检验。',keys:['processing','Sraw','Scorr','sigmaSraw','sigmaScorr','classic','quantum','source']}
+ 'table-summary':{title:'表 4 · 四组结果与适用界限',purpose:'汇总本次原始和背景校正后的四组组合值及标准误。满足 CHSH 配对关系时才显示理论比较界限；不满足时标记为非 CHSH。判断违背还需考虑统计误差与实验假设，仿真不能替代真实仪器中的实验检验。',keys:['processing','Sraw','Scorr','sigmaSraw','sigmaScorr','classic','quantum','source']}
 };
 const defs={
  setting:['设置编号','一次独立角度设置的序号。16 个设置共同组成四组关联函数所需的计数。'],
- a:['Alice 分析角 a','Alice 端偏振分析方向，单位为度（°）。在分组表中 a 表示该组的基本角度；− 通道使用与它正交的方向 a−90°。'],
- b:['Bob 分析角 b','Bob 端偏振分析方向，单位为度（°）。在分组表中 b 表示该组的基本角度；− 通道使用与它正交的方向 b−90°。'],
+ a:['Alice 分析角 a','Alice 端偏振分析方向，单位为度（°）。固定偏振片 0°、波片零点已标定时，机械角 θA = a/2。− 输出对应 a−90°，即半波片 θA−45°。'],
+ b:['Bob 分析角 b','Bob 端偏振分析方向，单位为度（°）。固定偏振片 0°、波片零点已标定时，机械角 θB = b/2。− 输出对应 b−90°，即半波片 θB−45°。'],
  angles:['分析角度 (a, b)','a 和 b 分别为 Alice、Bob 两端的基本分析方向。改变两端的相对角度会改变模型中的偏振关联。','模型期望 E(a,b) = −V cos[2(a−b)]'],
  t:['主采集时长 t','每个独立角度设置的主采集时间，单位为秒。背景窗口时长记为 T，本程序中 T = 10t。'],
  N:['原始符合计数 N','在一次设置的主采集窗口内，两端探测事件满足符合条件的总次数，尚未扣除背景贡献。'],
@@ -379,8 +392,8 @@ const defs={
  sigmaEcorr:['校正关联标准误 σE,corr','净计数含主采集和背景两部分统计波动，先计算每项净计数的方差，再通过关联函数传播。q 的四个取值为 (+1,−1,−1,+1)。','σ²E,corr ≈ Σ(qj−Ecorr)²(Nj+αj²Mj) / (ΣCj)²'],
  relative:['关联相对标准误 u相对','用校正关联的标准误除以关联绝对值，衡量相对统计精度。Ecorr 接近 0 时该比例会变大；Ecorr 为 0 时比例不定义。','u相对(Ecorr) = σE,corr / |Ecorr| × 100%'],
  sign:['CHSH 符号系数','将四组基本角度的 E 组合成 S 时使用的正负号。本程序按组顺序使用 (+1,−1,+1,+1)。','|S| = |E1−E2+E3+E4|'],
- Sraw:['原始 CHSH 参数 |Sraw|','将四组原始关联函数按 CHSH 符号组合后取绝对值。它概括这四组统计与局域隐变量界限的关系，无单位。','|Sraw| = |Eraw,1−Eraw,2+Eraw,3+Eraw,4|'],
- Scorr:['背景校正 CHSH 参数 |Scorr|','将四组背景校正后的关联函数组合成 CHSH 参数。背景扣除并不保证结果更接近理论值。','|Scorr| = |Ecorr,1−Ecorr,2+Ecorr,3+Ecorr,4|'],
+ Sraw:['原始四组组合值 |Sraw|','将四组原始关联函数按 (+1,−1,+1,+1) 组合后取绝对值。满足 (a,b)、(a,b′)、(a′,b)、(a′,b′) 配对时才是 CHSH 参数，否则为不适用 CHSH 界限的 |S*|。','|Sraw| = |Eraw,1−Eraw,2+Eraw,3+Eraw,4|'],
+ Scorr:['背景校正组合值 |Scorr|','将四组背景校正后的关联函数组合。只有满足 CHSH 配对关系时才适用 CHSH 界限；背景扣除并不保证结果更接近理论值。','|Scorr| = |Ecorr,1−Ecorr,2+Ecorr,3+Ecorr,4|'],
  sigmaSraw:['原始 S 的标准误 σS,raw','四组独立采集的关联方差相加，开方得到 S 的一倍统计标准误。', 'σS,raw = √(σ²E,raw,1+σ²E,raw,2+σ²E,raw,3+σ²E,raw,4)'],
  sigmaScorr:['校正 S 的标准误 σS,corr','合并四组校正关联函数的方差，包含独立背景计数的统计贡献。它不包含角度标定、光源漂移等系统误差。','σS,corr = √(σ²E,corr,1+σ²E,corr,2+σ²E,corr,3+σ²E,corr,4)'],
  classic:['局域隐变量界限 2','满足 CHSH 推导假设的局域隐变量模型必须满足 |S| ≤ 2。比较时还应结合统计不确定度与模型假设。','|S| ≤ 2'],
@@ -401,15 +414,15 @@ function value(key,ctx,data){
  if(!data)return '完成模拟后可查看本次数值。';
  const g=data.result.groups[Number(ctx.group)||0];
  const r=data.rows.find(r=>String(r.id)===ctx.row)||data.rows.find(r=>r.id===g.ids[Number(ctx.outcome)||0])||data.rows[0];
- const rowLabel=`第 ${r.id} 组设置（${r.a}°, ${r.b}°）`;
- const groupLabel=`基本角度（${g.a}°, ${g.b}°）`;
+ const rowLabel=`第 ${r.id} 次采集：分析角（${r.a}°, ${r.b}°），半波片（${r.a/2}°, ${r.b/2}°）`;
+ const groupLabel=`第 ${g.groupId||Number(ctx.group)+1||1} 组：分析角（${g.a}°, ${g.b}°），半波片（${g.a/2}°, ${g.b/2}°）`;
  const grouped=['chart-correlation','chart-counts','table-counts','table-errors'].includes(ctx.view);
  const outcomes={Npp:0,Npm:1,Nmp:2,Nmm:3};
  if(key in outcomes){const j=outcomes[key],n=g.counts[j],rr=data.rows.find(r=>r.id===g.ids[j]);return `${groupLabel}，实际设置（${rr.a}°, ${rr.b}°）：${n} 次，σN ≈ ${f(Math.sqrt(n),2)} 次。`;}
  const groupValues={Eraw:g.E,Ecorr:g.Ec,sigmaEraw:g.sigma,sigmaEcorr:g.sigmaC};
  if(key in groupValues)return `${groupLabel}：${defs[key][0]} = ${f(groupValues[key])}。`;
  const resultValues={Sraw:data.result.S,Scorr:data.result.Sc,sigmaSraw:data.result.sigma,sigmaScorr:data.result.sigmaC};
- if(key in resultValues)return `本次 ${defs[key][0]} = ${f(resultValues[key])}。`;
+ if(key in resultValues)return `本次 ${defs[key][0]} = ${f(resultValues[key])}。${data.result.chsh?.valid===false?'本次角度非 CHSH 配对，不适用 CHSH 界限。':''}`;
  switch(key){
   case 'setting':return `${rowLabel}，主采集 ${r.seconds} s。`;
   case 'a':return grouped?`${groupLabel}：a = ${g.a}°；正交方向为 ${g.a-90}°。`:`${rowLabel}：Alice a = ${r.a}°。`;
@@ -424,8 +437,8 @@ function value(key,ctx,data){
   case 'countError':return `${rowLabel}：N = ${r.raw}，σN ≈ √${r.raw} = ${f(Math.sqrt(r.raw),2)} 次。`;
   case 'relative':return `${groupLabel}：${g.Ec?f(g.sigmaC/Math.abs(g.Ec)*100,3)+'%':'Ecorr = 0，相对标准误未定义'}。`;
   case 'sign':return `${groupLabel}的系数为 ${g.sign>0?'+1':'−1'}。`;
-  case 'classic':return `本次 |Sraw| = ${f(data.result.S)}，|Scorr| = ${f(data.result.Sc)}；比较界限为 2。`;
-  case 'quantum':return `量子上限 2√2 = ${f(2*Math.SQRT2)}；本次 |Scorr| = ${f(data.result.Sc)}。`;
+  case 'classic':return data.result.chsh?.valid===false?'本次角度不构成 CHSH 配对，经典界限不适用。':`本次 |Sraw| = ${f(data.result.S)}，|Scorr| = ${f(data.result.Sc)}；比较界限为 2。`;
+  case 'quantum':return data.result.chsh?.valid===false?'本次角度不构成 CHSH 配对，量子界限不适用。':`量子上限 2√2 = ${f(2*Math.SQRT2)}；本次 |Scorr| = ${f(data.result.Sc)}。`;
   case 'heatScale':return `本次格内计数范围 ${Math.min(...data.rows.map(r=>r.raw))}–${Math.max(...data.rows.map(r=>r.raw))} 次；色标范围 0–${Math.max(4000,Math.ceil(Math.max(...data.rows.map(r=>r.raw))/1000)*1000)} 次。`;
   default:return `本次完成 ${data.rows.length} 组设置，总计 ${data.result.total} 次原始符合；|Sraw| = ${f(data.result.S)}，|Scorr| = ${f(data.result.Sc)}。`;
  }
@@ -486,46 +499,156 @@ dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoun
 dialog.addEventListener('close',()=>{if(opener?.isConnected&&$('#results-dialog').open)opener.focus({preventScroll:true});selection=null;opener=null;});
 window.LabExplain={refresh};
 })();
-</script><script>(function(){
+</script><script src="measurement-core.js"></script><script>(function(){
 'use strict';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const ref=JSON.parse($('#reference-data').textContent),baseline=CHSH.validateReference(ref),names={replay:'标准模拟',calibrated:'随机模拟',theory:'理想模型'};
 const num=(v,n=5)=>v===null||!Number.isFinite(v)?'—':v.toFixed(n);
-let state={mode:'replay',status:'ready',rows:null,result:null,elapsed:0,full:null,last:0,frame:0,record:null},saved={calibrated:{seconds:30,gain:1,visibility:.98,background:1,seed:'20260922'},theory:{seconds:30,gain:1,visibility:1,background:0,seed:'20260922'}},activeChannel=null,angles={A:0,B:22.5},stamp=0;
+let state={mode:'replay',status:'ready',rows:null,result:null,elapsed:0,full:null,last:0,frame:0,record:null,plan:null,collected:[],groupResults:[],currentGroup:0,groupElapsed:0,invalid:{A:false,B:false},rng:null},saved={calibrated:{seconds:30,gain:1,visibility:.98,background:1,seed:'20260922'},theory:{seconds:30,gain:1,visibility:1,background:0,seed:'20260922'}},activeChannel=null,angles={A:0,B:22.5},position={A:0,B:11.25},stamp=0;
+let groupSettings=MeasurementPlan.pairs(),activeSettings={A:0,B:0};
+try{
+ const stored=JSON.parse(localStorage.getItem('chsh-groups-v1')),legacy=JSON.parse(localStorage.getItem('chsh-hwp-v1'));
+ if(stored||legacy){groupSettings=stored?MeasurementPlan.validateGroups(stored):MeasurementPlan.pairs(legacy);state.mode='calibrated';$('#mode').value=state.mode;}
+}catch(_){/* Use valid defaults if browser storage is unavailable or corrupt. */}
+function locked(){return ['running','paused'].includes(state.status);}
+function protocolLocked(){return locked()||state.groupResults.length>0;}
+function currentGroup(){return (state.plan||plan()).groups[state.currentGroup];}
+function currentDone(){return state.groupResults.length>state.currentGroup;}
+function positionValid(){return ['A','B'].every(arm=>!state.invalid[arm]&&Number.isFinite(position[arm])&&Math.abs(position[arm])<=90);}
+function workflow(){return {status:state.status,current:state.currentGroup,completed:state.groupResults.length,groups:state.groupResults.map(g=>({...g})),position:{...position},valid:positionValid(),invalid:{...state.invalid},busy:locked(),done:currentDone(),canStart:!locked()&&!currentDone()&&positionValid(),canNext:!locked()&&currentDone()&&state.currentGroup<3};}
+function settings(){return MeasurementPlan.validateGroups(groupSettings);}
+function effectiveSettings(){const pairs=settings();state.groupResults.forEach((g,i)=>pairs[i]={A:g.thetaA,B:g.thetaB});if(!currentDone())pairs[state.currentGroup]={...position};return pairs;}
+function plan(){return MeasurementPlan.createGroups(effectiveSettings());}
+function measurement(){const groups=settings(),actual=effectiveSettings();return {groups,hwp:MeasurementPlan.createGroups(groups).hwp,active:{...activeSettings},locked:protocolLocked(),mode:state.mode,visibility:config().visibility,prediction:MeasurementPlan.predictionGroups(actual,config().visibility),ideal:MeasurementPlan.predictionGroups(actual,1),workflow:workflow()};}
+function preview(){setAngles(2*position.A,2*position.B);}
+function setMeasurement(value){
+ if(protocolLocked()){notice('装配配置已锁定；可在待测组直接修改当前角度');return false;}
+ let next;try{next=Array.isArray(value)?MeasurementPlan.validateGroups(value):MeasurementPlan.pairs(value);}catch(e){notice('半波片角度必须是 −90° 至 90° 内的数值');return false;}
+ groupSettings=next;
+ if(state.mode==='replay'){state.mode='calibrated';$('#mode').value=state.mode;apply(saved.calibrated);notice('已切换为随机模拟，按当前角度重新生成计数');}
+ try{localStorage.setItem('chsh-groups-v1',JSON.stringify(groupSettings));}catch(_){notice('当前角度已更新，但浏览器无法保存设置');}
+ empty();return true;
+}
+function selectSetting(arm,index){if(protocolLocked()||!['A','B'].includes(arm)||![0,1,2,3].includes(index))return;activeSettings[arm]=index;const p=settings();setAngles(2*p[activeSettings.A].A,2*p[activeSettings.B].B);metrics();}
+function setPosition(arm,value){
+ if(locked()||currentDone()||!['A','B'].includes(arm)||!Number.isFinite(value)||Math.abs(value)>90)return false;
+ position[arm]=value;state.invalid[arm]=false;setAngles(2*position.A,2*position.B);metrics();return true;
+}
+function invalidatePosition(arm){if(!locked()&&!currentDone()&&['A','B'].includes(arm)){state.invalid[arm]=true;metrics();}}
+function nextGroup(){
+ if(!workflow().canNext)return false;
+ state.currentGroup++;state.groupElapsed=0;state.full=null;state.invalid={A:false,B:false};state.status='configured';
+ activeSettings={A:state.currentGroup,B:state.currentGroup};position={...settings()[state.currentGroup]};preview();
+ $('#step-label').textContent=`第 ${state.currentGroup+1}/4 组 · 待采集`;metrics();renderResults();return true;
+}
 function fields(){return {seconds:+$('#duration').value,gain:+$('#gain').value,visibility:+$('#visibility').value,background:+$('#background').value,seed:$('#seed').value||'0'};}
-function config(){return state.mode==='replay'?{seconds:30,gain:1,visibility:.98,background:1,seed:null}:fields();}
+function config(){return state.mode==='replay'?{seconds:30,gain:1,visibility:.98,background:1,seed:'20260922'}:fields();}
 function apply(c){[['duration','seconds'],['gain','gain'],['visibility','visibility'],['background','background'],['seed','seed']].forEach(([id,key])=>$('#'+id).value=c[key]??'不适用');}
-function record(){return {app:'CHSH 3D Free-view Lab',version:'1.3.0',runId:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),mode:state.mode==='replay'?'fixed':state.mode,kind:state.mode==='replay'?'fixed-reference-run':'synthetic-simulation',config:config(),source:{document:ref.document,sha256:ref.documentSha256,identity:'simulation reference counts'},notes:['Fixed hardware layout. Camera movement does not modify experimental parameters.','Intermediate animation is illustrative, not a measured time series.','Corrected uncertainty propagates independent main and background counts: Var(C)=N+alpha^2*M.','16 settings are independent acquisitions, not simultaneous four-channel data.','Background controls use 10 times the main acquisition duration and are loaded/generated before the main animation.','Browser PRNG is mulberry32 with FNV-1a seed hashing. 同一模式、参数和种子可在本程序内重复生成。']};}
+function record(){return {app:'CHSH 3D Free-view Lab',version:'1.6.0',runId:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),mode:state.mode==='replay'?'fixed':state.mode,kind:state.mode==='replay'?'fixed-reference-run':'synthetic-simulation',config:{...config(),hwp:state.plan.hwp},measurement:{plannedGroups:settings(),groupAngles:state.plan.settings,hwp:state.plan.hwp,groups:state.plan.groups,acquisitions:[],workflow:'four independently configured groups; actual angles captured at acquisition start',angleUnit:'degree',analysisAngle:'a=2*thetaA; b=2*thetaB',correlation:'-V*cos(4*(thetaA-thetaB))',prediction:measurement().prediction,ideal:measurement().ideal},source:{document:ref.document,sha256:ref.documentSha256,identity:state.mode==='replay'?'simulation reference counts':'synthetic counts; reference model supplies rate scale only'},notes:['Fixed polarizers at 0 degrees and zero HWP offsets.','The state at the measurement HWP inputs is a singlet with isotropic visibility V. Source preparation and preceding QWP compensation are fixed assumptions, not simulated Jones propagation.','Intermediate animation is illustrative, not a measured time series.','Theoretical prediction excludes accidental background and finite-count fluctuations.','Corrected uncertainty propagates independent main and background counts: Var(C)=N+alpha^2*M.','16 settings are independent acquisitions, not simultaneous four-channel data. Repeated angles keep distinct acquisition IDs.','Background controls use 10 times the main acquisition duration.','Browser PRNG is mulberry32 with FNV-1a seed hashing.','Only repeated local settings forming (a,b), (a,b-prime), (a-prime,b), (a-prime,b-prime) admit the CHSH bounds. Otherwise S is only a four-correlation combination.']};}
 function notice(message){const el=$('#toast');el.textContent=message;el.classList.add('visible');clearTimeout(notice.timer);notice.timer=setTimeout(()=>el.classList.remove('visible'),3200);}
 document.addEventListener('lab-notice',e=>notice(e.detail));
 function cancel(){cancelAnimationFrame(state.frame);state.last=0;}
-function metrics(){const r=state.result;$('#s-raw').textContent=num(r?.S??null);$('#s-corr').textContent=num(r?.Sc??null);$('#s-uncertainty').textContent=r?'± '+num(r.sigma):'完整采集后计算';$('#s-corr-uncertainty').textContent=r?'± '+num(r.sigmaC):'包含背景误差';$('#counts').textContent=r?r.total.toLocaleString('zh-CN'):state.status==='configured'?'—':'0';$('#data-identity').textContent='16 组分析方向';$('#run-status').textContent=names[state.mode]+' · '+({ready:'准备就绪',configured:'等待开始',running:'正在采集',paused:'已暂停',complete:'已完成'}[state.status]);const running=['running','paused'].includes(state.status);$('#run').disabled=running;$('#pause').disabled=!running;$('#pause').textContent=state.status==='paused'?'▶':'Ⅱ';$('#mode').disabled=running;$('#parameters').disabled=state.mode==='replay'||running;$('#run').textContent='▶ 开始模拟';['#csv-export','#json-export'].forEach(id=>$(id).disabled=!state.rows||running);$('#analyzer-angle').disabled=running;}
-function inputs(){if(state.mode==='replay')apply(config());$('#duration-value').textContent=$('#duration').value+' s';['gain','visibility','background'].forEach(id=>$('#'+id+'-value').textContent=(+$('#'+id).value).toFixed(2));$('#visibility-label').textContent=state.mode==='theory'?'模型可见度 V':'模型可见度 V';$('#mode-note').textContent={replay:'16 组主采集各 30 s；独立背景窗口各 300 s。开始后自动显示光路，结束后隐藏光路并生成图表。',calibrated:'按当前关联模型 E = −V cos 2(a−b) 重新生成主计数与背景计数。默认 V = 0.98。',theory:'同一负关联模型的理想极限：默认 V = 1、背景为 0，|S| 均值为 2√2。参数可自由调整。'}[state.mode];}
-function renderResults(){renderBackground();const r=state.result;const identity=names[state.mode]+' · 本次数据';$('#result-caption').textContent=r?`${identity} · |S| raw ${num(r.S)} / corr ${num(r.Sc)}`:'未完成当前采集；不显示旧参数结果';const empty='<div class="empty-chart">请先完成一次采集，再查看当前设置的结果。</div>';$('#chart-correlation').innerHTML=r?LabCharts.correlation(r,identity):empty;$('#chart-counts').innerHTML=r?LabCharts.counts(r,identity):empty;$('#chart-heatmap').innerHTML=r?LabCharts.heatmap(state.rows,identity):empty;$('#data-body').innerHTML=ref.rows.map((row,i)=>{const n=state.rows?.[i];return `<tr><td>${row.id}</td><td>${row.a}</td><td>${row.b}</td><td>${n?n.seconds:config().seconds}</td><td>${n?n.raw:'—'}</td><td>${n?n.control:'—'}</td><td>${n?num(n.accidental,2):'—'}</td><td>${n?num(n.raw-n.accidental,2):'—'}</td></tr>`;}).join('');}
+function metrics(){
+ const r=state.result,w=workflow();$('.result-pair').hidden=!r;
+ $('#s-raw').textContent=num(r?.S??null);$('#s-corr').textContent=num(r?.Sc??null);
+ $('#s-raw').previousElementSibling.textContent=r?.chsh?.valid===false?'原始组合 |S*|':'原始 |S|';$('#s-corr').previousElementSibling.textContent=r?.chsh?.valid===false?'校正组合 |S*|':'校正 |S|';
+ $('#s-uncertainty').textContent=r?'± '+num(r.sigma):'四组完成后计算';$('#s-corr-uncertainty').textContent=r?'± '+num(r.sigmaC):'四组完成后计算';
+ $('#counts').textContent=state.collected.reduce((n,row)=>n+row.raw,0).toLocaleString('zh-CN');
+ $('#data-identity').textContent='4 组 E · 逐组采集';
+ $('#run-status').textContent=names[state.mode]+' · '+({ready:'待采集',configured:'待采集',running:'正在采集',paused:'已暂停','group-complete':'本组已记录',complete:'四组已完成'}[state.status]);
+ $('#run').disabled=!w.canStart;$('#pause').disabled=!w.busy;$('#pause').textContent=state.status==='paused'?'▶':'Ⅱ';
+ $('#mode').disabled=protocolLocked();$('#parameters').disabled=state.mode==='replay'||protocolLocked();
+ $('#run').textContent=`▶ 采集第 ${state.currentGroup+1} 组`;
+ ['#csv-export','#json-export'].forEach(id=>$(id).disabled=!state.rows);
+ $('#analyzer-angle').disabled=w.busy||w.done;
+ document.dispatchEvent(new Event('measurement-change'));
+}
+function inputs(){if(state.mode==='replay')apply(config());$('#duration-value').textContent=$('#duration').value+' s';['gain','visibility','background'].forEach(id=>$('#'+id+'-value').textContent=(+$('#'+id).value).toFixed(2));$('#mode-note').textContent={replay:'参考角重放原计数；其他角度独立模拟，逐组标记数据来源。',calibrated:'当前半波片角度决定独立泊松计数。E = −V cos[4(θA−θB)]；默认 V = 0.98。',theory:'默认 V = 1、背景为 0；仍含有限计数波动。理论值取决于实际角度。'}[state.mode];}
+function angleCell(value){return `<td>${value}<small class="hwp-cell">HWP ${value/2}°</small></td>`;}
+function renderResults(){renderBackground();const r=state.result;const identity=state.record?.kind==='mixed-reference-and-simulation'?'参考与模拟混合':names[state.mode];const validity=r?.chsh?.valid===false?'四组组合 |S*|（非 CHSH，不适用 2 / 2√2 界限）':'CHSH |S|';$('#result-caption').textContent=r?`${identity} · ${validity} raw ${num(r.S)} / corr ${num(r.Sc)} · 无背景理论 ${num(state.record.measurement.prediction.S)}`:`已完成 ${state.groupResults.length}/4 组，S 待计算`;const empty='<div class="empty-chart">四组 E 全部记录后生成完整图表。</div>';$('#chart-correlation').innerHTML=r?LabCharts.correlation(r,identity):empty;$('#chart-counts').innerHTML=r?LabCharts.counts(r,identity):empty;$('#chart-heatmap').innerHTML=r?LabCharts.heatmap(state.rows,identity):empty;$('#data-body').innerHTML=plan().rows.map(row=>{const n=state.collected.find(r=>r.id===row.id);return `<tr><td>${row.id}</td>${angleCell(row.a)}${angleCell(row.b)}<td>${n?n.seconds:config().seconds}</td><td>${n?n.raw:'—'}</td><td>${n?n.control:'—'}</td><td>${n?num(n.accidental,2):'—'}</td><td>${n?num(n.raw-n.accidental,2):'—'}</td></tr>`;}).join('');}
 function renderBackground(){
- const r=state.rows?.[0];
- const text=r?`本次第 ${r.id} 组：主采集 ${r.seconds} s 记录 N = ${r.raw}；独立背景窗口 ${r.controlSeconds} s 记录 M = ${r.control}。折算到主采集时长的背景为 ${r.control} × (${r.seconds}/${r.controlSeconds}) = ${num(r.accidental,2)}；净计数 C = ${r.raw} − ${num(r.accidental,2)} = ${num(r.raw-r.accidental,2)}。`:'完成模拟后，这里会用本次第一组计数展示背景扣除过程。';
+ const r=state.collected[0];
+ const text=r?`第 ${r.id} 次计数：主采集 ${r.seconds} s 记录 N = ${r.raw}；独立背景窗口 ${r.controlSeconds} s 记录 M = ${r.control}。折算到主采集时长的背景为 ${r.control} × (${r.seconds}/${r.controlSeconds}) = ${num(r.accidental,2)}；净计数 C = ${r.raw} − ${num(r.accidental,2)} = ${num(r.raw-r.accidental,2)}。`:'第一组完成后显示本轮首次计数的背景扣除过程。';
  $$('[data-background-example]').forEach(el=>el.textContent=text);
 }
-function empty(){cancel();state.status='configured';state.rows=null;state.result=null;state.record=null;state.elapsed=0;state.full=null;$('#progress').style.width='0%';$('#step-label').textContent='参数已更新 · 等待开始';$('#time-label').textContent=`0 / ${config().seconds*16} s`;inputs();metrics();renderResults();renderTables();}
-function setMode(mode){if(state.mode!=='replay')saved[state.mode]=fields();if(mode!=='replay')apply(saved[mode]);state.mode=mode;empty();}
-function setAngles(a,b){angles={A:a,B:b};window.Lab3D?.setAngle('A',a);window.Lab3D?.setAngle('B',b);if(activeChannel){$('#analyzer-angle').value=angles[activeChannel];$('#angle-value').textContent=angles[activeChannel]+'°';}}
-function progress(){const d=state.record.config.seconds,total=16*d,index=Math.min(15,Math.floor(state.elapsed/d)),r=state.full[index];$('#progress').style.width=(state.elapsed/total*100)+'%';$('#time-label').textContent=`${Math.floor(state.elapsed)} / ${total} s`;$('#step-label').textContent=`设置 ${index+1} / 16 · ${r.a}°, ${r.b}°`;let n=0;state.full.forEach((r,i)=>n+=Math.floor(r.raw*Math.max(0,Math.min(1,(state.elapsed-i*d)/d))));$('#counts').textContent=n.toLocaleString('zh-CN');setAngles(r.a,r.b);}
-function tick(ms){if(state.status!=='running')return;if(!state.last)state.last=ms;const dt=Math.min((ms-state.last)/1000,.25);state.last=ms;state.elapsed=Math.min(state.record.config.seconds*16,state.elapsed+dt*Number($('#speed').value));if(ms-stamp>70){progress();stamp=ms;}if(state.elapsed>=state.record.config.seconds*16){state.rows=state.full.map(r=>({...r}));state.result=CHSH.compute(state.rows,ref.groups);state.status='complete';window.Lab3D?.setBeams(false);state.record.completedAt=new Date().toISOString();progress();$('#step-label').textContent='16 / 16 组设置采集完成';metrics();notice('模拟完成：本次图表已生成');openResults();return;}state.frame=requestAnimationFrame(tick);}
-function start(){if(['running','paused'].includes(state.status))return;try{state.full=CHSH.simulate(ref,config(),state.mode);}catch(e){notice(e.message);return;}window.Lab3D?.setBeams(true);state.record=record();state.rows=null;state.result=null;state.status='running';state.elapsed=0;state.last=0;stamp=0;metrics();progress();renderResults();renderTables();state.frame=requestAnimationFrame(tick);}
+function empty(){
+ cancel();window.Lab3D?.setBeams(false);
+ Object.assign(state,{status:'configured',rows:null,result:null,record:null,elapsed:0,full:null,plan:null,collected:[],groupResults:[],currentGroup:0,groupElapsed:0,invalid:{A:false,B:false},rng:null});
+ activeSettings={A:0,B:0};position={...settings()[0]};
+ $('#progress').style.width='0%';$('#step-label').textContent='第 1/4 组 · 待采集';$('#time-label').textContent=`0 / ${config().seconds*16} s`;
+ inputs();preview();metrics();renderResults();renderTables();
+}
+function setMode(mode){if(protocolLocked())return;if(state.mode!=='replay')saved[state.mode]=fields();if(mode!=='replay')apply(saved[mode]);state.mode=mode;empty();}
+function setAngles(a,b){angles={A:a,B:b};window.Lab3D?.setAngle('A',a);window.Lab3D?.setAngle('B',b);if(activeChannel&&!locked()){$('#analyzer-angle').value=angles[activeChannel]/2;$('#angle-value').textContent=angles[activeChannel]/2+'°';}}
+function progress(){
+ const d=state.record.config.seconds,index=Math.min(3,Math.floor(state.groupElapsed/d)),r=state.full[index];
+ $('#progress').style.width=(state.elapsed/(16*d)*100)+'%';$('#time-label').textContent=`${Math.floor(state.elapsed)} / ${16*d} s`;
+ $('#step-label').textContent=`第 ${state.currentGroup+1}/4 组 · ${r.outcome} (${index+1}/4) · HWP ${Number(r.thetaA.toFixed(3))}°, ${Number(r.thetaB.toFixed(3))}°`;
+ let n=state.collected.reduce((n,row)=>n+row.raw,0);state.full.forEach((r,i)=>n+=Math.floor(r.raw*Math.max(0,Math.min(1,(state.groupElapsed-i*d)/d))));
+ $('#counts').textContent=n.toLocaleString('zh-CN');setAngles(r.a,r.b);
+}
+function tick(ms){
+ if(state.status!=='running')return;if(!state.last)state.last=ms;
+ const d=state.record.config.seconds,dt=Math.min((ms-state.last)/1000,.25);state.last=ms;
+ state.groupElapsed=Math.min(4*d,state.groupElapsed+dt*Number($('#speed').value));state.elapsed=state.collected.length*d+state.groupElapsed;
+ if(ms-stamp>70){progress();stamp=ms;}
+ if(state.groupElapsed>=4*d){
+  progress();state.collected.push(...state.full.map(r=>({...r})));
+  const g=CHSH.compute(state.full,[currentGroup()]).groups[0];state.groupResults.push(g);
+  state.record.measurement.acquisitions.push({groupId:g.groupId,completedAt:new Date().toISOString(),thetaA:g.thetaA,thetaB:g.thetaB,a:g.a,b:g.b,origin:state.full[0].origin,ids:g.ids});
+  window.Lab3D?.setBeams(false);state.status=state.groupResults.length===4?'complete':'group-complete';
+  setAngles(2*position.A,2*position.B);
+  if(state.status==='complete'){
+   state.rows=state.collected.map(r=>({...r}));state.result={...CHSH.compute(state.rows,state.plan.groups),chsh:state.plan.chsh};state.record.measurement.chsh=state.plan.chsh;state.record.completedAt=new Date().toISOString();
+   $('#step-label').textContent='4 组 E · 16 次采集完成';
+  }else $('#step-label').textContent=`第 ${state.currentGroup+1} 组已记录 · E = ${num(g.E)}`;
+  metrics();renderResults();renderTables();
+  if(state.status==='complete')openResults();
+  return;
+ }
+ state.frame=requestAnimationFrame(tick);
+}
+function start(){
+ if(window.LabAssembly?.getSnapshot().active)return false;
+ if(!workflow().canStart){notice('请填写有效的半波片角度；采集中的组或已完成的组不能重复开始');return false;}
+ try{
+  state.plan=plan();
+  if(!state.record){state.rng=CHSH.random(config().seed);state.record=record();}
+  Object.assign(state.record.measurement,{groupAngles:state.plan.settings,hwp:state.plan.hwp,groups:state.plan.groups,prediction:measurement().prediction,ideal:measurement().ideal});state.record.config.hwp=state.plan.hwp;
+  const groupPlan={rows:state.plan.rows.slice(state.currentGroup*4,state.currentGroup*4+4)};
+  const matchesReference=groupPlan.rows.every(r=>{const original=ref.rows.find(row=>row.id===r.id);return Math.abs(r.a-original.a)<1e-8&&Math.abs(r.b-original.b)<1e-8;});
+  const mode=state.mode==='replay'&&!matchesReference?'calibrated':state.mode,origin=mode==='replay'?'reference':'simulated';
+  state.full=CHSH.simulate(ref,state.record.config,mode,groupPlan,state.rng).map(r=>({...r,origin}));
+  const origins=new Set([...state.collected.map(r=>r.origin),origin]);
+  state.record.kind=origins.size>1?'mixed-reference-and-simulation':origin==='reference'?'fixed-reference-run':'synthetic-simulation';
+  state.record.mode=origins.size>1?'mixed':origin==='reference'?'fixed':mode;
+  state.record.source.identity=state.record.kind;
+ }catch(e){notice(e.message);return false;}
+ window.Lab3D?.setBeams(true);state.status='running';state.groupElapsed=0;state.last=0;stamp=0;
+ metrics();progress();renderResults();renderTables();state.frame=requestAnimationFrame(tick);return true;
+}
 function pause(){if(state.status==='running'){state.status='paused';cancel();$('#step-label').textContent='采集已暂停';}else if(state.status==='paused'){state.status='running';state.last=0;state.frame=requestAnimationFrame(tick);}metrics();if(state.status==='paused'){progress();$('#step-label').textContent='已暂停 · '+$('#step-label').textContent;}}
 function openResults(){window.Lab3D?.clearKeys();renderResults();renderTables();const dialog=$('#results-dialog');if(!dialog.open)dialog.showModal();dialog.scrollTop=0;}
-function snapshot(){return {mode:state.mode,status:state.status,elapsed:state.elapsed,data:state.rows?{metadata:state.record,rows:state.rows.map(r=>({...r,net:r.raw-r.accidental})),result:state.result,uncertainty:{raw:'independent Poisson approximation; excludes systematics',corrected:'first-order propagation with independent control counts; Var(C)=N+alpha^2*M',excludes:'systematic errors, drift and angle calibration'}}:null};}
+function snapshot(){return {mode:state.mode,status:state.status,elapsed:state.elapsed,session:{currentGroup:state.currentGroup+1,completed:state.groupResults.length,groups:state.groupResults,rows:state.collected},data:state.rows?{metadata:state.record,rows:state.rows.map(r=>({...r,net:r.raw-r.accidental})),result:state.result,uncertainty:{raw:'independent Poisson approximation; excludes systematics',corrected:'first-order propagation with independent control counts; Var(C)=N+alpha^2*M',excludes:'systematic errors, drift and angle calibration'}}:null};}
 function save(name,type,body){const url=URL.createObjectURL(new Blob([body],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);}
 function exportJSON(){if(!state.rows)return;save(`CHSH_3D_${state.record.mode}.json`,'application/json;charset=utf-8',JSON.stringify(snapshot().data,null,2));notice('已导出计数、参数、来源与结果');}
-function csv(){if(!state.rows)return;const safe=x=>/^[=+\-@\t\r]/.test(String(x))?"'"+x:String(x);const records=[['模式','数据身份','种子','t_s','gain','visibility','background','id','a_deg','b_deg','N','Nacc','Nnet','M_control','control_t_s','alpha','Sraw','sigma_Sraw','Scorr','sigma_Scorr','source_document','source_SHA256'],...state.rows.map((r,i)=>[names[state.mode],state.record.kind,safe(state.record.config.seed??'不适用'),r.seconds,state.record.config.gain,state.record.config.visibility,state.record.config.background,r.id,r.a,r.b,r.raw,r.accidental,r.raw-r.accidental,r.control,r.controlSeconds,r.alpha,state.result.S,state.result.sigma,state.result.Sc,state.result.sigmaC,ref.document,ref.documentSha256])];save(`CHSH_3D_${state.record.mode}.csv`,'text/csv;charset=utf-8','\uFEFF'+records.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n'));notice('CSV 已导出，带有仿真身份与来源');}
+function csv(){
+ if(!state.rows)return;
+ const safe=x=>/^[=+\-@\t\r]/.test(String(x))?"'"+x:String(x);
+ const records=[['模式','数据身份','种子','t_s','gain','visibility','background','id','group_id','outcome','HWP_A_deg','HWP_B_deg','a_deg','b_deg','N','Nacc','Nnet','M_control','control_t_s','alpha','Sraw','sigma_Sraw','Scorr','sigma_Scorr','S_model_no_background','planned_A_deg','planned_B_deg','actual_base_A_deg','actual_base_B_deg','CHSH_valid','S_definition','count_origin','source_document','source_SHA256'],...state.rows.map(r=>{
+  const planned=state.record.measurement.plannedGroups[r.groupId-1],actual=state.record.measurement.groupAngles[r.groupId-1];
+  return [names[state.mode],state.record.kind,safe(state.record.config.seed),r.seconds,state.record.config.gain,state.record.config.visibility,state.record.config.background,r.id,r.groupId,safe(r.outcome),r.thetaA,r.thetaB,r.a,r.b,r.raw,r.accidental,r.raw-r.accidental,r.control,r.controlSeconds,r.alpha,state.result.S??'',state.result.sigma??'',state.result.Sc??'',state.result.sigmaC??'',state.record.measurement.prediction.S,planned.A,planned.B,actual.A,actual.B,state.result.chsh.valid,state.result.chsh.valid?'CHSH':'four-correlation combination; CHSH bounds not applicable',r.origin,ref.document,ref.documentSha256];
+ })];
+ save(`CHSH_3D_${state.record.mode}.csv`,'text/csv;charset=utf-8','\uFEFF'+records.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n'));notice('CSV 已导出，包含配置角度、实际角度与 CHSH 配对状态');
+}
 
 function renderTables(){
  const r=state.result,empty='<tr><td colspan="8">完成当前采集后生成。</td></tr>';
  const row=cells=>'<tr>'+cells.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
- $('#group-body').innerHTML=r?r.groups.map(g=>row([g.a,g.b,...g.counts,g.total])).join(''):empty;
- $('#error-body').innerHTML=r?r.groups.map(g=>row([g.a,g.b,num(g.E),num(g.Ec),num(g.sigma),num(g.sigmaC),g.Ec?num(g.sigmaC/Math.abs(g.Ec)*100,3)+'%':'—',g.sign>0?'+1':'−1'])).join(''):empty;
- const lines=[['本次原始计数',r?.S,r?.sigma,'当前数据'],['本次背景校正',r?.Sc,r?.sigmaC,'当前数据 · 传播背景误差'],['局域隐变量界限',2,null,'理论界限'],['量子上限',2*Math.SQRT2,null,'理论界限']];
+ $('#group-body').innerHTML=state.groupResults.length?state.groupResults.map(g=>row([g.a,g.b,...g.counts,g.total])).join(''):empty;
+ $('#error-body').innerHTML=state.groupResults.length?state.groupResults.map(g=>row([g.a,g.b,num(g.E),num(g.Ec),num(g.sigma),num(g.sigmaC),g.Ec?num(g.sigmaC/Math.abs(g.Ec)*100,3)+'%':'—',g.sign>0?'+1':'−1'])).join(''):empty;
+ const valid=r?.chsh?.valid!==false;
+ const lines=[['本次原始计数',r?.S,r?.sigma,valid?'当前数据':'四组组合值 · 非 CHSH'],['本次背景校正',r?.Sc,r?.sigmaC,valid?'当前数据 · 传播背景误差':'四组组合值 · 非 CHSH'],['局域隐变量界限',valid?2:null,null,valid?'理论界限':'本次不适用'],['量子上限',valid?2*Math.SQRT2:null,null,valid?'理论界限':'本次不适用']];
  $('#summary-body').innerHTML=lines.map(([label,value,sigma,kind])=>row([label,num(value??null),num(sigma??null),kind])).join('');
  $$('[data-chart]').forEach(b=>b.disabled=!state.rows);
  window.LabExplain?.refresh();
@@ -533,13 +656,17 @@ function renderTables(){
 function exportChart(id){if(!state.rows)return;const el=$('#'+id+' svg').cloneNode(true),m=document.createElementNS('http://www.w3.org/2000/svg','metadata');m.textContent=JSON.stringify(snapshot().data);el.prepend(m);el.setAttribute('role','img');el.removeAttribute('data-view');el.querySelectorAll('[data-help]').forEach(node=>{for(const a of [...node.attributes])if(a.name.startsWith('data-')||['tabindex','role','aria-haspopup','aria-label'].includes(a.name))node.removeAttribute(a.name);});save(`CHSH_3D_${state.record.mode}_${id}.svg`,'image/svg+xml;charset=utf-8',new XMLSerializer().serializeToString(el));notice('SVG 图表已导出，包含数据来源与模式');}
 $$('[data-chart]').forEach(b=>b.addEventListener('click',()=>exportChart(b.dataset.chart)));
 
-$('#mode').addEventListener('change',()=>setMode($('#mode').value));['duration','gain','visibility','background','seed'].forEach(id=>$('#'+id).addEventListener('input',()=>{if(state.mode!=='replay'&&!['running','paused'].includes(state.status))empty();}));$('#run').addEventListener('click',start);$('#pause').addEventListener('click',pause);$('#csv-export').addEventListener('click',csv);$('#json-export').addEventListener('click',exportJSON);
+$('#mode').addEventListener('change',()=>setMode($('#mode').value));['duration','gain','visibility','background','seed'].forEach(id=>$('#'+id).addEventListener('input',()=>{if(state.mode!=='replay'&&!protocolLocked())empty();}));$('#run').addEventListener('click',start);$('#pause').addEventListener('click',pause);$('#csv-export').addEventListener('click',csv);$('#json-export').addEventListener('click',exportJSON);
 $('#results-open').addEventListener('click',openResults);$$('[data-close]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.close).close()));$$('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
 $('#panel-collapse').addEventListener('click',()=>{const p=$('#panel-body');p.hidden=!p.hidden;$('.instrument-panel').classList.toggle('collapsed',p.hidden);$('#panel-collapse').textContent=p.hidden?'+':'−';$('#panel-collapse').setAttribute('aria-label',p.hidden?'展开实验控制':'收起实验控制');});$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){notice('可使用浏览器 F11 切换全屏');}});
-document.addEventListener('optic-selected',e=>{const d=e.detail;$('#part-title').textContent=d.name;$('#part-description').textContent=d.description;$('#part-index').textContent=String(d.index).padStart(2,'0');activeChannel=d.channel;$('#angle-setting').hidden=!d.channel;if(d.channel){$('#analyzer-angle').value=angles[d.channel];$('#angle-value').textContent=angles[d.channel]+'°';}});$('#analyzer-angle').addEventListener('input',()=>{if(!activeChannel)return;angles[activeChannel]=+$('#analyzer-angle').value;window.Lab3D?.setAngle(activeChannel,angles[activeChannel]);$('#angle-value').textContent=angles[activeChannel]+'°';});$('#source-hash').textContent='源文件 SHA-256：'+ref.documentSha256;
-inputs();metrics();renderResults();renderTables();setAngles(0,22.5);window.QLab={getSnapshot:()=>JSON.parse(JSON.stringify(snapshot())),referenceSummary:baseline};
+document.addEventListener('optic-selected',e=>{const d=e.detail;$('#part-title').textContent=d.name;$('#part-description').textContent=d.description;$('#part-index').textContent=String(d.index).padStart(2,'0');activeChannel=d.id.endsWith('-hwp')?d.channel:null;$('#angle-setting').hidden=!activeChannel;if(activeChannel){const v=angles[activeChannel]/2;$('#analyzer-angle').value=v;$('#angle-value').textContent=v+'°';}});
+$('#analyzer-angle').addEventListener('input',()=>{if(activeChannel)setPosition(activeChannel,+$('#analyzer-angle').value);});$('#source-hash').textContent='源文件 SHA-256：'+ref.documentSha256;
+document.addEventListener('assembly-ended',()=>{if(!locked()){preview();metrics();}});
+window.QLab={getSnapshot:()=>JSON.parse(JSON.stringify(snapshot())),referenceSummary:baseline,getMeasurement:measurement,setMeasurement,selectSetting,setPosition,invalidatePosition,nextGroup,startGroup:start,resetMeasurement:empty};
+if(state.mode!=='replay')apply(saved[state.mode]);empty();
 })();
 </script>
+<script src="assembly-icons.js"></script><script src="assembly-catalog.js"></script><script src="assembly.js"></script><script src="measurement-ui.js"></script>
 </body></html>
 
 <!-- Third-party license: Three.js

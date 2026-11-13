@@ -1,0 +1,137 @@
+/* The assembly workspace shares the existing laboratory, with distinct task and status colors. */
+.lab-mode-switch{display:flex;gap:3px;padding:3px;border:1px solid #45606a;border-radius:6px;background:#101719;flex-shrink:0}
+.lab-mode-switch button{border:0;border-radius:4px;padding:6px 15px;font-size:12px;white-space:nowrap}
+.lab-mode-switch button[aria-pressed=true]{background:#294852;color:#c6f3fa}
+.assembly-active .instrument-panel,.assembly-active .scene-title,.assembly-active .movement,.assembly-active .minimap-panel,.assembly-active .view-rail,.assembly-active #hint,.assembly-active .status-pill,.assembly-active #results-open{display:none}
+.assembly-active .topbar{border-radius:6px}
+.assembly-active .brand strong{letter-spacing:0}
+#assembly-workspace{--assembly-cyan:#8ce4ef;--assembly-amber:#efc17a;--assembly-border:#39474c;color:#e4ecec;letter-spacing:0;font-size:13px}
+#assembly-workspace [hidden],#assembly-workspace[hidden]{display:none!important}
+#assembly-workspace *{letter-spacing:0}
+#assembly-workspace button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:34px}
+#assembly-workspace button svg{flex-shrink:0}
+#assembly-workspace button:focus-visible{outline:2px solid var(--assembly-cyan);outline-offset:3px}
+#assembly-workspace button[aria-pressed=true]{border-color:#6eafbb;background:#25434b;color:#e3faff}
+#assembly-workspace h2,#assembly-workspace h3,#assembly-workspace p{margin:0}
+#assembly-workspace h2{font-size:18px;font-weight:550;line-height:1.5}
+.assembly-library,.assembly-detail{position:fixed;z-index:4;top:109px;bottom:25px;background:#182124f7;border:1px solid var(--assembly-border);border-radius:6px;display:flex;flex-direction:column;min-height:0;backdrop-filter:blur(16px)}
+.assembly-library{left:26px;width:266px}
+.assembly-detail{right:26px;width:300px}
+.assembly-heading{padding:17px 16px 12px;display:flex;justify-content:space-between;align-items:center}
+.assembly-eyebrow{font-size:9px;color:#9eafb5;display:block;line-height:1.7}
+#assembly-workspace .assembly-icon{width:34px;height:34px;padding:0;flex-shrink:0;border-radius:4px;background:transparent}
+.assembly-progress-line{display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:#b9c6cc;font-size:11px}
+.assembly-progress-line strong{font-size:13px;color:#b8e3ce;font-variant-numeric:tabular-nums}
+#assembly-progress{display:block;width:calc(100% - 32px);height:4px;margin:9px 16px 16px;appearance:none;border:0;background:#3a4348}
+#assembly-progress::-webkit-progress-bar{background:#3a4348}
+#assembly-progress::-webkit-progress-value{background:#8dd5b8;transition:width .25s}
+#assembly-progress::-moz-progress-bar{background:#8dd5b8}
+#assembly-categories{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:0 16px 12px}
+#assembly-categories button{font-size:11px;padding:5px;border-radius:4px;color:#bfc9ce}
+.assembly-search{display:block;padding:0 16px 12px}
+.assembly-search input{width:100%;min-width:0;border:1px solid #4b5960;background:#11191d;border-radius:4px;color:#e8f3f4;padding:8px 10px;font-size:12px;min-height:36px}
+#assembly-list{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;padding:0 8px 10px;overscroll-behavior:contain}
+#assembly-workspace .assembly-item{width:100%;min-height:76px;display:grid;grid-template-columns:57px minmax(0,1fr) 16px;gap:9px;text-align:left;padding:7px 8px;border-radius:4px;border:1px solid transparent;background:transparent;margin-bottom:3px}
+.assembly-item img{width:57px;height:57px;object-fit:contain;background:#222e34;border-radius:4px}
+.assembly-item strong{font-weight:500;font-size:12px;display:block;overflow-wrap:anywhere;line-height:1.55}
+.assembly-item small{display:block;margin-top:5px;color:#a7b6bb;font-size:10px}
+.assembly-item[aria-pressed=true] small{color:#aadbe6}
+.assembly-item-number{margin-left:10px;font-variant-numeric:tabular-nums;opacity:.75}
+.assembly-item-check{color:#9dc9b6;display:flex;align-items:center;justify-content:center}
+.assembly-item-check svg{width:16px}
+.assembly-library-foot{padding:10px 12px;border-top:1px solid var(--assembly-border);display:flex;justify-content:space-between;align-items:center;gap:6px}
+#assembly-save-status{font-size:9px;color:#a5b6bd;max-width:135px}
+.assembly-library-foot button{padding:4px 7px;font-size:11px;white-space:nowrap}
+.assembly-detail-head{display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--assembly-border);font-size:11px;min-height:52px;flex-shrink:0}
+#assembly-item-state{margin-left:auto;color:var(--assembly-amber);white-space:nowrap}
+#assembly-item-state.is-installed{color:#a3d8bc}
+#assembly-workspace #assembly-back{display:none}
+.assembly-detail-scroll{padding:0 18px 18px;overflow-y:auto;scrollbar-width:thin;min-height:0;flex:1;overscroll-behavior:contain}
+.assembly-preview{height:152px;position:relative;margin:0 -18px 6px;background:#212c31;border-bottom:1px solid #ffffff0b;display:flex;justify-content:center;align-items:center}
+.assembly-preview img{width:175px;height:140px;object-fit:contain;image-rendering:auto}
+#assembly-part-number{position:absolute;left:18px;top:12px;font-size:11px;color:#a1b5bd;font-variant-numeric:tabular-nums}
+#assembly-part-name{padding:9px 0 13px;overflow-wrap:anywhere}
+.assembly-detail section{padding-top:14px;border-top:1px solid var(--assembly-border);margin-top:4px}
+#assembly-workspace h3{font-weight:500;font-size:11px;color:var(--assembly-cyan);margin-bottom:7px}
+#assembly-workspace .assembly-role p,#assembly-workspace .assembly-location p{line-height:1.8;font-size:12px;color:#d3dee2}
+.assembly-location{padding-bottom:12px}
+#assembly-locate{margin-top:10px;font-size:11px;background:#26373d;border-color:#46636c;padding:6px 12px}
+.assembly-model-note{font-size:10px;border-top:1px solid var(--assembly-border);padding-top:12px;color:#a5b9c0}
+.assembly-model-note summary{cursor:pointer;padding:4px 0}
+#assembly-model-note{line-height:1.8;padding-top:8px}
+.assembly-detail-foot{border-top:1px solid var(--assembly-border);padding:12px 16px;flex-shrink:0}
+#assembly-feedback{font-size:11px;line-height:1.6;color:var(--assembly-amber);min-height:36px;padding-bottom:8px}
+.assembly-item-actions{display:flex;gap:7px;margin-bottom:8px;justify-content:space-between}
+.assembly-item-actions button{font-size:11px;padding:6px 10px}
+#assembly-workspace .assembly-primary{background:#9fdbc5;color:#172b26;border-color:#9fdbc5;font-weight:550}
+#assembly-continue{width:100%;font-size:11px;padding:8px 6px}
+.assembly-scene-heading{position:fixed;top:115px;left:316px;right:350px;z-index:3;pointer-events:none;text-shadow:0 1px 6px #000}
+#assembly-workspace .assembly-scene-heading h2{font-size:20px;margin:5px 0;color:#ecf6f5}
+#assembly-task-subtitle{font-size:11px;color:#bfd4da}
+#assembly-workspace #assembly-target{position:fixed;z-index:3;border:0;background:none;padding:0;display:flex;flex-direction:column;gap:4px;transform:translate(-50%,-50%);touch-action:manipulation;overflow:visible;color:#d3fcff}
+.assembly-target-ring{display:grid;place-items:center;width:56px;height:56px;border:2px solid #9bf3ff;border-radius:50%;background:#143e49b8;box-shadow:0 0 0 7px #7fdce51c,0 0 28px #72ebff75;animation:mount-pulse 1.8s ease-in-out infinite}
+.assembly-target-ring svg{width:25px;height:25px}
+.assembly-target-caption{white-space:nowrap;font-size:11px;color:#c7f4fa;background:#122e36;padding:2px 10px;border:1px solid #70acb6;border-radius:3px}
+#assembly-target:hover .assembly-target-ring{background:#246c7c}
+.assembly-view-tools{position:fixed;left:calc(50% - 18px);bottom:25px;transform:translateX(-50%);z-index:3;display:flex;gap:5px;padding:5px;background:#182124e8;border:1px solid var(--assembly-border);border-radius:6px}
+.assembly-view-tools button{font-size:11px;border:0;padding:5px 13px}
+.assembly-view-tools button:last-child{width:36px;padding:0}
+.assembly-no-results{padding:24px 12px;color:#b6c2c7;font-size:12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#assembly-reset-dialog{width:min(420px,90vw);border-radius:6px;padding:24px;background:#1c272c;color:#e0ebef;border-color:#51616a}
+#assembly-reset-dialog::backdrop{background:#051014bb}
+#assembly-reset-dialog p{font-size:13px;line-height:1.9;margin:13px 0 20px}
+#assembly-reset-dialog form>div{display:flex;justify-content:flex-end;gap:8px}
+@keyframes mount-pulse{50%{box-shadow:0 0 0 10px #7fdce50d,0 0 34px #72ebffb0}}
+@media(max-width:1150px) and (min-width:900px){.assembly-library{left:16px;width:240px}.assembly-detail{right:16px;width:266px}.assembly-scene-heading{left:278px;right:302px}.assembly-active .topbar{left:16px;right:16px}.brand small{display:none}.lab-mode-switch button{padding-left:10px;padding-right:10px}}
+@media(max-width:899px){
+ .topbar{top:10px;left:10px;right:10px;padding:10px 12px;gap:10px;flex-wrap:wrap;border-radius:6px}
+ .brand{gap:8px}.brand strong{font-size:12px;letter-spacing:0}.brand small{display:none}.brand-mark{width:28px;height:28px;font-size:18px}.slash{margin:0 4px}
+ .lab-mode-switch{margin-left:auto}.lab-mode-switch button{padding:5px 9px;font-size:11px}
+ .assembly-active .header-actions{display:none}
+ .assembly-library,.assembly-detail{left:10px;right:10px;top:auto;bottom:10px;width:auto;height:47dvh;border-radius:6px}
+ .assembly-detail{display:none}
+ #assembly-workspace.show-detail .assembly-library{display:none}
+ #assembly-workspace.show-detail .assembly-detail{display:flex}
+ #assembly-workspace #assembly-back{display:inline-flex}
+ .assembly-heading{padding:10px 14px 5px}.assembly-heading .assembly-eyebrow{display:none}
+ #assembly-workspace .assembly-heading h2{font-size:16px}
+ .assembly-progress-line{padding:0 14px;font-size:10px}
+ #assembly-progress{margin:4px 14px 9px;width:calc(100% - 28px)}
+ #assembly-categories{grid-template-columns:repeat(4,minmax(0,1fr));padding:0 12px 8px;gap:4px}
+ #assembly-categories button{font-size:10px;padding:4px 2px}
+ .assembly-search{padding:0 12px 8px}.assembly-search input{min-height:30px;padding:4px 8px;font-size:11px}
+ #assembly-list{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:3px}
+ #assembly-workspace .assembly-item{grid-template-columns:42px minmax(0,1fr);min-height:62px;padding:5px;gap:6px;margin:0}
+ .assembly-item img{width:42px;height:46px}.assembly-item strong{font-size:10px}.assembly-item small{font-size:9px;margin-top:3px}.assembly-item-check{display:none}
+ .assembly-library-foot{padding:7px 12px}.assembly-library-foot button{min-height:29px!important}
+ .assembly-detail-head{padding:6px 12px;min-height:44px}
+ .assembly-detail-scroll{padding:0 14px 10px}
+ .assembly-preview{float:right;width:85px;height:84px;margin:8px 0 5px 10px;border:0;background:transparent}
+ .assembly-preview img{width:85px;height:84px}#assembly-part-number{display:none}
+ #assembly-workspace #assembly-part-name{font-size:16px;padding:12px 0 8px}
+ .assembly-detail section{padding-top:8px;margin-top:2px}
+ #assembly-workspace .assembly-role p,#assembly-workspace .assembly-location p{font-size:11px;line-height:1.7}
+ .assembly-role{border-top:0!important;min-height:85px}.assembly-location{clear:both}
+ .assembly-detail-foot{padding:7px 12px;display:grid;grid-template-columns:1fr auto;gap:5px 10px;align-items:center}
+ #assembly-feedback{min-height:0;padding:0;font-size:10px}
+ .assembly-item-actions{margin:0}.assembly-item-actions button{font-size:10px;padding:5px 7px;min-height:30px!important}
+ #assembly-continue{grid-column:1/-1;min-height:30px!important;padding:5px}
+ #assembly-continue:disabled{display:none}
+ .assembly-scene-heading{left:20px;right:20px;top:83px}
+ #assembly-workspace .assembly-scene-heading h2{font-size:17px;margin:1px 0}
+ #assembly-task-subtitle{font-size:10px}.assembly-scene-heading .assembly-eyebrow{font-size:8px}
+ .assembly-view-tools{bottom:calc(47dvh + 20px);left:auto;right:12px;transform:none;padding:2px;gap:2px}
+ .assembly-view-tools button{min-height:28px!important;padding:4px 10px;font-size:10px}
+ .assembly-target-ring{width:48px;height:48px}.assembly-target-caption{font-size:10px}
+}
+@media(max-width:370px){.brand-mark,.brand .slash{display:none}.brand strong{font-size:10px}.topbar{padding:10px 8px;gap:4px}.lab-mode-switch button{font-size:10px;padding:5px 7px}}
+@media(max-width:600px){body:not(.assembly-active) .brand-mark,body:not(.assembly-active) .brand .slash{display:none}body:not(.assembly-active) .brand strong{font-size:10px}body:not(.assembly-active) .topbar{padding:10px 8px;gap:4px}body:not(.assembly-active) .lab-mode-switch button{font-size:10px;padding:5px 7px}}
+@media(max-height:560px) and (min-width:600px){.assembly-library,.assembly-detail{top:83px;bottom:12px;height:auto;width:220px}.assembly-library{left:12px;right:auto}.assembly-detail{left:auto;right:12px}.assembly-scene-heading{top:85px;left:250px;right:250px}.assembly-view-tools{bottom:12px;right:calc(50% - 70px)}.assembly-detail-foot{display:block}.assembly-detail-scroll{min-height:50px}.assembly-preview{height:75px}.assembly-preview img{height:75px}}
+@media(prefers-reduced-motion:reduce){.assembly-target-ring{animation:none}#assembly-progress::-webkit-progress-value{transition:none}}
+@media(max-height:560px) and (min-width:600px){
+ #assembly-workspace .assembly-library,#assembly-workspace .assembly-detail,#assembly-workspace.show-detail .assembly-library{display:flex}
+ #assembly-workspace #assembly-back{display:none}
+ #assembly-list{display:block}
+ .assembly-scene-heading{max-width:calc(100vw - 500px)}
+}
