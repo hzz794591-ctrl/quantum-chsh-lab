@@ -5,6 +5,35 @@ function createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,
   const group = new T.Group();
   scene.add(group);
   group.visible = false;
+  // Share the real geometry, not the part's circular picking metadata or materials.
+  const ghost=new T.Group(), edgeCache=new WeakMap();
+  const shell=new T.MeshStandardMaterial({color:'#7ce2e0',emissive:'#267779',transparent:true,opacity:.32,depthWrite:false,roughness:.65});
+  const edgeInk=new T.LineBasicMaterial({color:'#aefff3',transparent:true,opacity:.72,depthWrite:false,toneMapped:false});
+  group.add(ghost);
+  function preview() {
+    const part=objects.find(p=>p.userData.id===state.selected);
+    const id=state.active&&part&&!state.installed.has(state.selected)?state.selected:null;
+    if(id===ghost.userData.id) return;
+    ghost.clear(); ghost.userData.id=id;
+    if(!id) return;
+    part.traverse(source=>{
+      if(!source.isMesh || source.geometry.type==='PlaneGeometry') return;
+      const geo=source.geometry;
+      if(!geo.boundingSphere) geo.computeBoundingSphere();
+      if(geo.boundingSphere.radius<.05) return;
+      const face=new T.Mesh(geo,shell);
+      face.userData.source=source; face.userData.slotId=id; face.matrixAutoUpdate=false;
+      if(geo.boundingSphere.radius>.15) {
+        if(!edgeCache.has(geo)) edgeCache.set(geo,new T.EdgesGeometry(geo,34));
+        face.add(new T.LineSegments(edgeCache.get(geo),edgeInk));
+      }
+      ghost.add(face);
+    });
+    movePreview();
+  }
+  function movePreview(){
+    for(const face of ghost.children){face.userData.source.updateWorldMatrix(true,false);face.matrix.copy(face.userData.source.matrixWorld);face.matrixWorldNeedsUpdate=true;}
+  }
   const slots = objects.map((part,index) => {
     const root = new T.Group();
     root.position.set(part.position.x,TOP+.075,part.position.z);
@@ -29,6 +58,7 @@ function createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,
     });
     assemblyWires.forEach(wire => wire.visible = !state.active || state.installed.size === objects.length);
     slots.forEach(slot => slot.root.visible = !state.installed.has(slot.part.userData.id));
+    preview();
     if(state.active) { setBeams(false); setLabels(false); }
   }
   function focus(id) {
@@ -37,10 +67,11 @@ function createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,
     const p = slot.root.position;
     const narrow = innerWidth < 900 && !(innerWidth>=600 && innerHeight<=560);
     camera.clearViewOffset();
+    camera.zoom=narrow?.85:1; camera.updateProjectionMatrix();
     camera.position.set(p.x+2.2,p.y+5.9,p.z+5.8);
     camera.lookAt(p.x,p.y+.4,p.z);
     camera.rotation.order = 'YXZ';
-    if(narrow) camera.setViewOffset(innerWidth,innerHeight,0,innerHeight*.17,innerWidth,innerHeight);
+    if(narrow) camera.setViewOffset(innerWidth,innerHeight,0,innerHeight*.145,innerWidth,innerHeight);
     clearPreset();
     keys.clear();
   }
@@ -109,7 +140,8 @@ function createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,
     thumbnails,focus,position,
     enter(installed) { state.active=true; state.installed=new Set(installed); state.drops.clear(); sync(); resetPreset('top'); },
     leave() { state.active=false; state.drops.clear(); camera.clearViewOffset(); sync(); resetPreset('overview'); },
-    select(id,move=true) { state.selected=id; if(move) focus(id); },
+    select(id,move=true) { state.selected=id; preview(); if(move) focus(id); },
+    updatePreview:movePreview,
     install(id) {
       if(!state.active || !objects.some(p => p.userData.id===id) || state.installed.has(id)) return false;
       state.installed.add(id); sync();
@@ -119,10 +151,10 @@ function createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,
     remove(id) { state.installed.delete(id); state.drops.delete(id); sync(); },
     pick(ray) {
       if(!state.active) return false;
-      const hit = ray.intersectObjects(slots.filter(s => s.root.visible).map(s => s.hit),false)[0];
+      const hit = ray.intersectObjects([...ghost.children,...slots.filter(s => s.root.visible).map(s => s.hit)],false)[0];
       if(hit) document.dispatchEvent(new CustomEvent('assembly-slot',{detail:hit.object.userData.slotId}));
       return !!hit;
     },
-    snapshot:() => ({active:state.active,selected:state.selected,installed:[...state.installed],visible:objects.filter(p => p.visible).map(p => p.userData.id)})
+    snapshot:() => ({active:state.active,selected:state.selected,preview:ghost.userData.id,installed:[...state.installed],visible:objects.filter(p => p.visible).map(p => p.userData.id)})
   };
 }

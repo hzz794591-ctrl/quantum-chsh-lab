@@ -12,7 +12,7 @@
 
 /* Clickable explanations share the dark results palette. */
 .chart-interaction-hint{margin:0 24px 15px;color:#a9c9b7;font-size:12px}.chart-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px;padding:0 3px 9px;border-bottom:1px solid #30483c}.chart-heading button{font-size:12px;color:#cbe6d5;background:none;border:0;padding:4px 0;text-align:left}.chart-heading span{font-size:10px;color:#91b7a3;white-space:nowrap}.chart svg{cursor:help}.chart [data-help]{cursor:pointer}.chart [data-help]:hover{filter:brightness(1.25)}[data-help]:focus-visible{outline:2px solid #9de0bd;outline-offset:3px}.table-title button{font:inherit;text-align:left;background:none;color:inherit;border:0;padding:4px 0}.table-title button:hover,.chart-heading button:hover{text-decoration:underline;text-underline-offset:4px}th button{font:inherit;color:inherit;border:0;background:none;padding:3px 0;border-bottom:1px dotted #779d85;border-radius:0}td[data-help]{cursor:pointer}td[data-help]:hover{background:#a7d5ba16}.chart-help-dialog{width:min(620px,92vw);max-height:86vh}.chart-help-dialog::backdrop{background:#08100bd1;backdrop-filter:blur(4px)}.chart-help-dialog .dialog-head h2{font-size:18px;line-height:1.5}.chart-help-body{padding:5px 24px 22px;font-size:13px;line-height:1.9;color:#c3d7cc;overflow-wrap:anywhere}.chart-help-body h3{font-size:12px;color:#91c9ad;margin:0 0 6px}.chart-help-body section{margin-top:19px}.chart-help-body p{margin:12px 0}.chart-help-body section p{margin:0}.help-formula{padding:12px 14px;border:1px solid #3a5949;border-radius:8px;background:#10281d;color:#d4f2df;font-variant-numeric:tabular-nums}.help-current{padding:14px 16px;background:#1c3428;border-left:3px solid #83c7a2;border-radius:4px}.help-variables{display:flex;flex-wrap:wrap;gap:7px}.help-variables button{padding:6px 10px;font-size:11px;text-align:left;border-color:#355d48;color:#b9d6c6}.chart-help-body .help-close-hint{font-size:11px;color:#8da899;margin-top:20px}@media(max-width:760px){.chart-interaction-hint{margin-left:14px;margin-right:14px;font-size:11px}.chart-help-body{padding-left:17px;padding-right:17px}.chart-help-dialog .dialog-head h2{font-size:16px}.chart-heading{min-width:0}.chart-heading span{display:none}}
-</style><link rel="stylesheet" href="assembly.css"><link rel="stylesheet" href="measurement.css"><script src="assembly-scene.js"></script></head><body>
+</style><link rel="stylesheet" href="assembly.css"><link rel="stylesheet" href="measurement.css"><link rel="stylesheet" href="lab-learning.css"><script src="assembly-scene.js"></script></head><body>
 <div id="viewport" tabindex="0" aria-label="三维光学实验场景。WASD移动，QE升降，右键拖动观察。"></div>
 <div id="loading"><div class="load-orbit">Q</div><h1>正在构建光学实验室</h1><p>载入三维元件与实验数据 · 全部本地运行</p></div>
 <header class="hud topbar"><div class="brand"><span class="brand-mark">Q</span><div><strong>偏振纠缠<span class="slash"> / </span>3D 实验室</strong><small>POLARIZATION ENTANGLEMENT · VIRTUAL LAB</small></div></div><div class="header-actions"><span class="status-pill"><i></i>自由视角</span><button id="results-open">数据与图表 <span>↗</span></button><button id="fullscreen" title="全屏" aria-label="全屏">⛶</button></div></header>
@@ -26,7 +26,7 @@
 <div class="run-row"><button id="run" class="primary">▶ 开始模拟</button><button id="pause" title="暂停 / 继续" disabled>Ⅱ</button><select id="speed" aria-label="演示速度"><option value="20">20×</option><option value="60" selected>60×</option><option value="120">120×</option><option value="480">480×</option></select></div>
 <div class="selected-optic"><span class="section-label">当前元件 <span id="part-index">—</span></span><strong id="part-title">点击任一光学元件</strong><p id="part-description">测量臂半波片选择偏振测量基；偏振片保持固定。</p><div id="angle-setting" hidden><label><span id="selected-hwp-label">半波片机械角 θ</span> <output id="angle-value">0°</output><input id="analyzer-angle" type="range" aria-label="选中半波片机械角" min="-90" max="90" step="0.01" value="0"></label><small>固定偏振片为 0°；分析角 = 2 × θ。</small></div></div><div class="panel-foot"><i></i><span id="run-status">标准模拟 · 准备就绪</span></div></div></aside>
 <div class="hud minimap-panel"><div><span>场景导览</span><span id="camera-height">自由视角</span></div><canvas id="minimap" width="360" height="200" aria-label="光学台与相机位置俯视图"></canvas><span id="camera-position">X 0.0 · Z 0.0</span></div>
-<footer class="hud movement"><div class="keys"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></div><div class="movement-copy"><strong>自由移动</strong><span><b>右键拖动</b> 观察 · <b>滚轮</b> 靠近</span></div><i></i><div class="more-keys"><span><kbd>Q</kbd><kbd>E</kbd> 降低 / 升高</span><span><kbd>Shift</kbd> 加速 · <kbd>R</kbd> 复位</span></div><button id="immersive" title="隐藏界面，Tab恢复">纯净视图 <kbd>Tab</kbd></button></footer>
+<footer class="hud movement"><div class="keys"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></div><div class="movement-copy"><strong>自由移动</strong><span><b>右键拖动</b> 观察 · <b>滚轮</b> 靠近</span></div><i></i><div class="more-keys"><span><kbd>Q</kbd><kbd>E</kbd> 降低 / 升高</span><span><kbd>Shift</kbd> 加速 · <kbd>R</kbd> 复位</span></div><button id="immersive" title="纯净视图，按 H 或 Esc 恢复">纯净视图 <kbd>H</kbd></button></footer>
 <div id="hint">WASD 移动视角 · 右键拖动观察 · R 返回全景</div><div id="toast" role="status"></div>
 <div id="labels-layer" aria-hidden="true"></div>
 
@@ -241,9 +241,9 @@ try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performan
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.65));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.17;host.appendChild(renderer.domElement);
 const scene=new T.Scene();scene.background=new T.Color('#0d1618');scene.fog=new T.Fog('#182321',23,50);
 const camera=new T.PerspectiveCamera(43,innerWidth/innerHeight,.055,90);camera.rotation.order='YXZ';
-const hemi=new T.HemisphereLight('#a9c3cf','#101716',1.65);scene.add(hemi);
+const hemi=new T.HemisphereLight('#e1f1ff','#485455',1.85);scene.add(hemi);
 const sun=new T.DirectionalLight('#e7f2e7',2.25);sun.position.set(-6,13,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-10,right:10,top:10,bottom:-10,near:.1,far:30});sun.shadow.bias=-.00015;sun.shadow.normalBias=.015;sun.shadow.radius=3;scene.add(sun);
-const fill=new T.DirectionalLight('#9fbcc4',1.0);fill.position.set(7,7,-5);scene.add(fill);
+const fill=new T.DirectionalLight('#ffead1',1.1);fill.position.set(5,6,9);scene.add(fill);
 const rim=new T.DirectionalLight('#b6d8e5',1.7);rim.position.set(-4,8,-5);scene.add(rim);
 function material(color,metal=0,rough=.6,extra={}){return new T.MeshStandardMaterial({color,metalness:metal,roughness:rough,...extra});}
 const mats={black:material('#252c2a',.46,.42),dark:material('#070c0c',.2,.64),silver:material('#a3b4ae',.72,.28),base:material('#59645f',.48,.39),ivory:material('#9ba397',.25,.5),rubber:material('#111817',0,.9),glass:material('#8fb7ad',.3,.15,{transparent:true,opacity:.43,side:T.DoubleSide}),red:material('#7f312b',.2,.42),cable:material('#cccaba',.1,.72),ink:material('#243029',.2,.7)};
@@ -276,10 +276,15 @@ function part(id,name,description,x,z,kind,rot=0){const g=new T.Group();g.positi
 function register(g){g.traverse(o=>{if(o.isMesh){o.userData.part=g;picking.push(o);}});const el=document.createElement('span');el.className='optic-label';el.textContent=g.userData.name;el.hidden=true;$('#labels-layer').appendChild(el);labelEntries.push({g,el});return g;}
 function ringGeometry(outer,inner,depth){const shape=new T.Shape();shape.absarc(0,0,outer,0,TAU,false);const hole=new T.Path();hole.absarc(0,0,inner,0,TAU,true);shape.holes.push(hole);const geo=new T.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelSegments:1,steps:1,bevelSize:.009,bevelThickness:.009,curveSegments:40});geo.translate(0,0,-depth/2);return geo;}
 const ringGeo=ringGeometry(.215,.132,.095),innerGeo=ringGeometry(.14,.119,.015);
+const armBands={A:material('#68c6cc',.18,.42),B:material('#dca466',.18,.42)};
 function optic(id,name,desc,x,z,rot=0,variant='round'){
  const g=part(id,name,desc,x,z,variant,rot);mount(g,0,0);const head=new T.Group();head.position.y=Y;g.add(head);
  if(variant==='edge'){box(head,.055,.34,.22,mats.black);const disc=mesh(new T.CircleGeometry(.118,40),mats.glass,head,0,0,.12);disc.rotation.y=Math.PI/2;}
  else{mesh(ringGeo,mats.black,head);mesh(innerGeo,mats.silver,head,0,0,.061);mesh(new T.CircleGeometry(.121,40),mats.glass,head,0,0,.053);mesh(new T.CircleGeometry(.121,40),mats.glass,head,0,0,-.053);const knob=cyl(head,.04,.10,mats.black,.23,.045,0);knob.rotation.z=Math.PI/2;for(let a=0;a<360;a+=15){const q=a*Math.PI/180;const mark=box(head,.008,a%45===0?.027:.013,.003,mats.base,Math.sin(q)*.184,Math.cos(q)*.184,.059);mark.rotation.z=-q;}}
+ if(id==='A-hwp'||id==='B-hwp'){
+  const band=armBands[id[0]];cyl(g,.067,.085,band,0,Y-.39,0);
+  for(const z of [-.064,.064])box(head,.050,.012,.008,band,.17,0,z);
+ }
  box(g,.12,.15,.10,mats.black,0,Y-.22,0);g.userData.head=head;return register(g);
 }
 function squareOptic(id,name,desc,x,z,rot=0,kind='lens'){
@@ -333,14 +338,27 @@ paths.forEach((curve,j)=>{mesh(new T.TubeGeometry(curve,60,.009,5,false),beamMat
 const presets={overview:{p:[11.5,13.5,15.0],t:[.9,2.5,0]},top:{p:[.7,20.5,3.5],t:[.7,2.6,0]},source:{p:[-5.2,7.0,3.4],t:[-.4,3.5,-2.0]},alice:{p:[-8.9,6.4,6.4],t:[-2.8,3.5,1.3]},bob:{p:[7.1,6.8,7.3],t:[3.0,3.5,1.3]}};
 let selected=null,labelsVisible=false,keys=new Set(),drag=null,moved=false,activePreset='overview',labelTime=0,lastTime=0,frames=0,fpsTime=0,pointer=new T.Vector2(),raycaster=new T.Raycaster();
 const outline=new T.Box3Helper(new T.Box3(),0x80b499);outline.visible=false;outline.material.transparent=true;outline.material.opacity=.65;scene.add(outline);
-function resetPreset(name){const p=presets[name]||presets.overview;camera.position.fromArray(p.p);camera.lookAt(new T.Vector3(...p.t));camera.rotation.order='YXZ';activePreset=name;document.querySelectorAll('[data-preset]').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));}
+let framedView='overview';
+function frameBench(name){
+ if(name)framedView=name;
+ const phone=matchMedia('(max-width:760px) and (min-height:561px)').matches;
+ camera.clearViewOffset();camera.zoom=1;
+ if(phone){
+  const wideView=framedView==='overview'||framedView==='top';
+  camera.zoom=Math.min(1,camera.aspect/(wideView?1.32:.83));
+  const folded=!window.LabAssemblyScene?.active&&$('.instrument-panel').classList.contains('collapsed');
+  camera.setViewOffset(innerWidth,innerHeight,0,innerHeight*(folded?.015:.20),innerWidth,innerHeight);
+ }
+ camera.updateProjectionMatrix();
+}
+function resetPreset(name){const p=presets[name]||presets.overview;camera.position.fromArray(p.p);camera.lookAt(new T.Vector3(...p.t));camera.rotation.order='YXZ';activePreset=name;frameBench(name);document.querySelectorAll('[data-preset]').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));}
 function clearPreset(){if(activePreset){activePreset=null;document.querySelectorAll('[data-preset]').forEach(b=>b.classList.remove('active'));}}
 function notify(s){document.dispatchEvent(new CustomEvent('lab-notice',{detail:s}));}
 function choose(g){selected=g;outline.box.setFromObject(g);outline.visible=g.visible;document.dispatchEvent(new CustomEvent('optic-selected',{detail:{id:g.userData.id,name:g.userData.name,description:g.userData.description,channel:g.userData.channel||null,index:objects.indexOf(g)+1}}));}
 function selectAt(x,y){pointer.set(x/innerWidth*2-1,-y/innerHeight*2+1);raycaster.setFromCamera(pointer,camera);if(window.LabAssemblyScene?.pick(raycaster))return;const hit=raycaster.intersectObjects(picking,false).find(h=>h.object.userData.part?.visible);if(hit)choose(hit.object.userData.part);}
-function setAngle(channel,degrees){for(const g of analyzers[channel]||[]){const hwp=g.userData.id.endsWith('-hwp');g.userData.head.rotation.z=hwp?-degrees/2*Math.PI/180:0;g.userData.angle=hwp?degrees/2:0;}if(selected&&selected.userData.channel===channel)outline.box.setFromObject(selected);}
+function setAngle(channel,degrees){for(const g of analyzers[channel]||[]){const hwp=g.userData.id.endsWith('-hwp');g.userData.head.rotation.z=hwp?-degrees/2*Math.PI/180:0;g.userData.angle=hwp?degrees/2:0;}if(selected&&selected.userData.channel===channel)outline.box.setFromObject(selected);if(window.LabAssemblyScene?.active)window.LabAssemblyScene.updatePreview();}
 function inputBusy(){const a=document.activeElement;return document.querySelector('dialog[open]')||a&&(a.matches('input,textarea,select,button,summary,a')||a.isContentEditable);}
-window.addEventListener('keydown',e=>{if(inputBusy())return;const c=e.code;if(['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ShiftLeft','ShiftRight','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c)){e.preventDefault();keys.add(c);}if(e.repeat)return;if(c==='KeyR')resetPreset('overview');if(/^Digit[1-5]$/.test(c))resetPreset(['overview','top','source','alice','bob'][Number(c.slice(-1))-1]);if(c==='Tab'){e.preventDefault();document.body.classList.toggle('clean');}if(c==='Escape'){document.body.classList.remove('clean');keys.clear();drag=null;}if(c==='KeyL')$('#labels-toggle').click();if(c==='KeyB')$('#beam-toggle').click();});
+window.addEventListener('keydown',e=>{const c=e.code;if(document.body.classList.contains('clean')&&['Escape','KeyH','Tab'].includes(c)&&!document.querySelector('dialog[open]')){document.body.classList.remove('clean');keys.clear();drag=null;return;}if(inputBusy())return;if(['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ShiftLeft','ShiftRight','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c)){e.preventDefault();keys.add(c);}if(e.repeat)return;if(c==='KeyR')resetPreset('overview');if(/^Digit[1-5]$/.test(c))resetPreset(['overview','top','source','alice','bob'][Number(c.slice(-1))-1]);if(c==='KeyH'&&!window.LabAssemblyScene?.active)document.body.classList.add('clean');if(c==='Escape'){keys.clear();drag=null;}if(c==='KeyL')$('#labels-toggle').click();if(c==='KeyB')$('#beam-toggle').click();});
 window.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>{keys.clear();drag=null;});document.addEventListener('visibilitychange',()=>{keys.clear();drag=null;});
 host.addEventListener('contextmenu',e=>e.preventDefault());host.addEventListener('pointerdown',e=>{host.focus({preventScroll:true});keys.clear();drag={x:e.clientX,y:e.clientY,button:e.button,startX:e.clientX,startY:e.clientY};moved=false;host.setPointerCapture(e.pointerId);});
 host.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>4)moved=true;if(moved){camera.rotation.y-=dx*.004;camera.rotation.x=T.MathUtils.clamp(camera.rotation.x-dy*.004,-1.48,1.05);camera.rotation.z=0;clearPreset();}drag.x=e.clientX;drag.y=e.clientY;});
@@ -352,7 +370,8 @@ function setLabels(on){labelsVisible=on;$('#labels-toggle').setAttribute('aria-p
 function updateLabels(){const v=new T.Vector3();for(const {g,el} of labelEntries){if(!labelsVisible||!g.visible||window.LabAssemblyScene?.active){el.hidden=true;continue;}g.getWorldPosition(v);v.y=Y+.5;v.project(camera);const x=(v.x+1)/2*innerWidth,y=(1-v.y)/2*innerHeight;el.hidden=v.z>1||v.z< -1||x<5||x>innerWidth-10||y<90||y>innerHeight-70;if(!el.hidden)el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;}}
 const map=$('#minimap'),mc=map.getContext('2d');function minimap(){const w=map.width,h=map.height;mc.clearRect(0,0,w,h);const sx=w/22,sy=h/12;const project=(x,z)=>[w/2+x*sx,h/2+z*sy];mc.fillStyle='#a4bcb222';mc.strokeStyle='#91aea761';const a=project(-6.2,-4.1);mc.fillRect(a[0],a[1],12.4*sx,8.2*sy);mc.strokeRect(a[0],a[1],12.4*sx,8.2*sy);for(const g of objects){const [x,y]=project(g.position.x,g.position.z);mc.fillStyle=g===selected?'#dcebbe':'#97b4a3';mc.beginPath();mc.arc(x,y,2.4,0,TAU);mc.fill();}let [x,y]=project(camera.position.x,camera.position.z);x=T.MathUtils.clamp(x,9,w-9);y=T.MathUtils.clamp(y,9,h-9);const dir=new T.Vector3();camera.getWorldDirection(dir);const angle=Math.atan2(dir.z,dir.x);mc.save();mc.translate(x,y);mc.rotate(angle);mc.fillStyle='#9be6c2';mc.beginPath();mc.moveTo(9,0);mc.lineTo(-6,-5);mc.lineTo(-3,0);mc.lineTo(-6,5);mc.closePath();mc.fill();mc.restore();$('#camera-height').textContent=`H ${camera.position.y.toFixed(1)}`;$('#camera-position').textContent=`X ${camera.position.x.toFixed(1)} · Z ${camera.position.z.toFixed(1)}`;}
 document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>resetPreset(b.dataset.preset)));$('#labels-toggle').addEventListener('click',()=>setLabels(!labelsVisible));$('#beam-toggle').addEventListener('click',()=>{setBeams(!beamGroup.visible);});$('#immersive').addEventListener('click',()=>document.body.classList.toggle('clean'));
-window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});resetPreset('overview');
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;if(!window.LabAssemblyScene?.active)frameBench(activePreset);else camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+document.addEventListener('panel-layout',()=>{if(!window.LabAssemblyScene?.active)frameBench(activePreset);});resetPreset('overview');
 function animate(ms){if(!fpsTime)fpsTime=ms;requestAnimationFrame(animate);const dt=Math.min((ms-lastTime)/1000||0,.06);lastTime=ms;if(!inputBusy()&&keys.size){let forward=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'));let right=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));let up=Number(keys.has('KeyE'))-Number(keys.has('KeyQ'));const v=new T.Vector3(-Math.sin(camera.rotation.y)*forward+Math.cos(camera.rotation.y)*right,up,-Math.cos(camera.rotation.y)*forward-Math.sin(camera.rotation.y)*right);if(v.lengthSq()>0){v.normalize().multiplyScalar((keys.has('ShiftLeft')||keys.has('ShiftRight')?8.0:3.6)*dt);camera.position.add(v);clampCamera();clearPreset();}}if(beamGroup.visible)moving.forEach(({dot,curve,offset})=>dot.position.copy(curve.getPoint((ms*.00020+offset)%1)));if(ms-labelTime>90){updateLabels();minimap();labelTime=ms;}renderer.render(scene,camera);frames++;if(ms-fpsTime>1000){frames=0;fpsTime=ms;}}
 requestAnimationFrame(animate);$('#loading').style.display='none';
 window.LabAssemblyScene=createAssemblyScene({T,scene,camera,renderer,objects,assemblyWires,TOP,keys,outline,setBeams,setLabels,resetPreset,clearPreset});
@@ -573,6 +592,7 @@ function renderBackground(){
 }
 function empty(){
  cancel();window.Lab3D?.setBeams(false);
+ document.dispatchEvent(new Event('measurement-cleared'));
  Object.assign(state,{status:'configured',rows:null,result:null,record:null,elapsed:0,full:null,plan:null,collected:[],groupResults:[],currentGroup:0,groupElapsed:0,invalid:{A:false,B:false},rng:null});
  activeSettings={A:0,B:0};position={...settings()[0]};
  $('#progress').style.width='0%';$('#step-label').textContent='第 1/4 组 · 待采集';$('#time-label').textContent=`0 / ${config().seconds*16} s`;
@@ -584,6 +604,7 @@ function progress(){
  const d=state.record.config.seconds,index=Math.min(3,Math.floor(state.groupElapsed/d)),r=state.full[index];
  $('#progress').style.width=(state.elapsed/(16*d)*100)+'%';$('#time-label').textContent=`${Math.floor(state.elapsed)} / ${16*d} s`;
  $('#step-label').textContent=`第 ${state.currentGroup+1}/4 组 · ${r.outcome} (${index+1}/4) · HWP ${Number(r.thetaA.toFixed(3))}°, ${Number(r.thetaB.toFixed(3))}°`;
+ if(state.lastOutcome!==r.id){state.lastOutcome=r.id;document.dispatchEvent(new CustomEvent('acquisition-outcome',{detail:{group:state.currentGroup,index}}));}
  let n=state.collected.reduce((n,row)=>n+row.raw,0);state.full.forEach((r,i)=>n+=Math.floor(r.raw*Math.max(0,Math.min(1,(state.groupElapsed-i*d)/d))));
  $('#counts').textContent=n.toLocaleString('zh-CN');setAngles(r.a,r.b);
 }
@@ -624,7 +645,7 @@ function start(){
   state.record.mode=origins.size>1?'mixed':origin==='reference'?'fixed':mode;
   state.record.source.identity=state.record.kind;
  }catch(e){notice(e.message);return false;}
- window.Lab3D?.setBeams(true);state.status='running';state.groupElapsed=0;state.last=0;stamp=0;
+ window.Lab3D?.setBeams(true);state.status='running';state.groupElapsed=0;state.last=0;state.lastOutcome=null;stamp=0;
  metrics();progress();renderResults();renderTables();state.frame=requestAnimationFrame(tick);return true;
 }
 function pause(){if(state.status==='running'){state.status='paused';cancel();$('#step-label').textContent='采集已暂停';}else if(state.status==='paused'){state.status='running';state.last=0;state.frame=requestAnimationFrame(tick);}metrics();if(state.status==='paused'){progress();$('#step-label').textContent='已暂停 · '+$('#step-label').textContent;}}
@@ -658,7 +679,7 @@ $$('[data-chart]').forEach(b=>b.addEventListener('click',()=>exportChart(b.datas
 
 $('#mode').addEventListener('change',()=>setMode($('#mode').value));['duration','gain','visibility','background','seed'].forEach(id=>$('#'+id).addEventListener('input',()=>{if(state.mode!=='replay'&&!protocolLocked())empty();}));$('#run').addEventListener('click',start);$('#pause').addEventListener('click',pause);$('#csv-export').addEventListener('click',csv);$('#json-export').addEventListener('click',exportJSON);
 $('#results-open').addEventListener('click',openResults);$$('[data-close]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.close).close()));$$('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
-$('#panel-collapse').addEventListener('click',()=>{const p=$('#panel-body');p.hidden=!p.hidden;$('.instrument-panel').classList.toggle('collapsed',p.hidden);$('#panel-collapse').textContent=p.hidden?'+':'−';$('#panel-collapse').setAttribute('aria-label',p.hidden?'展开实验控制':'收起实验控制');});$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){notice('可使用浏览器 F11 切换全屏');}});
+$('#panel-collapse').addEventListener('click',()=>{const p=$('#panel-body');p.hidden=!p.hidden;$('.instrument-panel').classList.toggle('collapsed',p.hidden);$('#panel-collapse').textContent=p.hidden?'+':'−';$('#panel-collapse').setAttribute('aria-label',p.hidden?'展开实验控制':'收起实验控制');document.dispatchEvent(new Event('panel-layout'));});$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){notice('可使用浏览器 F11 切换全屏');}});
 document.addEventListener('optic-selected',e=>{const d=e.detail;$('#part-title').textContent=d.name;$('#part-description').textContent=d.description;$('#part-index').textContent=String(d.index).padStart(2,'0');activeChannel=d.id.endsWith('-hwp')?d.channel:null;$('#angle-setting').hidden=!activeChannel;if(activeChannel){const v=angles[activeChannel]/2;$('#analyzer-angle').value=v;$('#angle-value').textContent=v+'°';}});
 $('#analyzer-angle').addEventListener('input',()=>{if(activeChannel)setPosition(activeChannel,+$('#analyzer-angle').value);});$('#source-hash').textContent='源文件 SHA-256：'+ref.documentSha256;
 document.addEventListener('assembly-ended',()=>{if(!locked()){preview();metrics();}});
@@ -666,7 +687,7 @@ window.QLab={getSnapshot:()=>JSON.parse(JSON.stringify(snapshot())),referenceSum
 if(state.mode!=='replay')apply(saved[state.mode]);empty();
 })();
 </script>
-<script src="assembly-icons.js"></script><script src="assembly-catalog.js"></script><script src="assembly.js"></script><script src="measurement-ui.js"></script>
+<script src="assembly-icons.js"></script><script src="assembly-catalog.js"></script><script src="assembly.js"></script><script src="lab-notebook.js"></script><script src="measurement-ui.js"></script>
 </body></html>
 
 <!-- Third-party license: Three.js

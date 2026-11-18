@@ -4,6 +4,12 @@
 
 使用 Edge / Chrome 等支持 WebGL 的浏览器访问。所有计算在访问者自己的浏览器中进行，网站由 GitHub Pages 托管。
 
+## 第一次做实验
+
+1. 在「新手光路导览」选择光源、分析或计数，观察晶体、测量半波片和计数设备各自的位置。所选器件以三维虚影展示在真实槽位，点击虚影或发光标记才会安装。「去测量」使用完整光路，不会代装器件或清空已有进度。
+2. 在 A / B 半波片预设四组角度，或直接进入测量再调。刻度盘的虚线是机械轴，实线是有效分析轴。刻度盘显示该组基准方向，采集中的正交切换另见进度栏及三维镜架。
+3. 打开「实验手记」可先预测同号还是异号更多，也可跳过。采集完成后对照这组的四个原始计数，观察 `(同号 − 异号) / 总数` 怎样得到 E。四组齐全才给出组合值和逐项代入；不满足 CHSH 配对时单独解释。点 E₁ 至 E₄ 可回看已录组，不修改记录。
+
 ## 操作
 
 - 默认进入“引导装配”。器件库中共有 27 件器件，左右两侧各有一台可安装的符合计数设备；沿用原左侧设备的装配记录。
@@ -18,7 +24,7 @@
 - 理论 E / S 放在默认折叠的“理论预测 · 非实测结果”中，不作为实验结果。修改装配配置会进入随机模拟；标准模拟中临时修改当前角度时，该组按实际角度独立模拟，不套用其他角度的参考计数。每组记录参考或模拟来源，混合运行会明确标记。
 - “完整实验”进入预先装好的实验场景；切换不会清空装配进度。采集进行中或暂停时不可进入装配。
 - W / A / S / D：移动观察视角；Q / E：降低 / 升高。
-- 右键拖动：转向；滚轮：靠近 / 远离；R：返回全景。
+- 右键拖动：转向；滚轮：靠近 / 远离；R：返回全景。H 切换纯净视图，Esc 恢复；Tab 用于键盘导航。
 - 点击“采集第 N 组”仅采集该组的四个符合计数并记录一个 E，随后停止；点击“下一组”后可直接采集或再改角度。未齐四组时显示“已完成 N/4 组，S 待计算”。“重新测量”需要确认，清空旧计数、E 和 S，但保留四组装配配置与装配进度。
 - 四组齐全后才计算实验 S、生成完整图表并启用 CSV / JSON / SVG 导出。组间可在记录表和“数据与图表”中查看已经完成的 E 与计数。
 - 点击图表中的变量、图形、表头或数值，查看含义、公式与本次数值；点击标题查看图表用途。
@@ -38,12 +44,13 @@
 - `assembly-icons.js`：Lucide 图标节点子集，许可证见 `LUCIDE-LICENSE`。
 - `measurement-core.js`：四对机械角、16 次采集计划、理论 E / S 和 CHSH 配对检查。
 - `measurement-ui.js` / `measurement.css`：四组装配配置、自由角度采集与 E 记录、折叠理论值、测量互锁和输入校验。
+- `lab-notebook.js` / `lab-learning.css`：角度刻度盘、预测和本组计数对照、结果解读、光路导览与手机控制面板。
 
 直接用浏览器打开 `index.html` 即可，无需构建或开发服务器。装配过程和原实验都不依赖 CDN。
 
 ## 验证
 
-在可解析 `playwright` 与 `sharp` 的 Node 环境分别运行 `node tests/assembly.test.cjs` 和 `node tests/measurement.test.cjs`。可通过 `NODE_PATH` 指定依赖目录，通过 `BROWSER_PATH` 指定 Chromium/Edge 可执行文件，通过 `QA_OUTPUT` 指定截图目录。
+在可解析 `playwright` 与 `sharp` 的 Node 环境分别运行 `node tests/assembly.test.cjs`、`node tests/measurement.test.cjs` 和 `node tests/learning.test.cjs`。可通过 `NODE_PATH` 指定依赖目录，通过 `BROWSER_PATH` 指定 Chromium/Edge 可执行文件，通过 `QA_OUTPUT` 指定截图目录。
 
 测试覆盖 27 件完整装配、左右计数设备与线缆布局、入射半波片镜架、错位拒绝、拆卸、重置与取消、搜索、进度恢复、三种采集模式、暂停互锁、原参考数据、桌面与手机布局及三维画布像素检查。
 
@@ -51,4 +58,4 @@
 
 ## 发布
 
-GitHub Pages 从 main 分支根目录发布。需将 `index.html`、`assembly*.js`、`assembly.css`、`measurement-core.js`、`measurement-ui.js`、`measurement.css` 和 `LUCIDE-LICENSE` 一起提交；仅替换 HTML 会缺少装配与角度界面。推送到 main 后等待 Pages 构建完成。本地开发不会自动发布网站。
+GitHub Pages 从 main 分支根目录发布。需将 `index.html`、`assembly*.js`、`assembly.css`、`measurement-core.js`、`measurement-ui.js`、`measurement.css`、`lab-notebook.js`、`lab-learning.css` 和 `LUCIDE-LICENSE` 一起提交；仅替换 HTML 会缺少交互界面。推送到 main 后等待 Pages 构建完成。本地开发不会自动发布网站。

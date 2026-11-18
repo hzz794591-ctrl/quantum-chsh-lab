@@ -45,11 +45,20 @@
       <details class="assembly-model-note"><summary>模型说明</summary><p id="assembly-model-note"></p></details></div>
       <footer class="assembly-detail-foot"><p id="assembly-feedback" role="status" aria-live="polite"></p><div class="assembly-item-actions"><button id="assembly-remove">${icon('Undo2')} 拆下</button><button id="assembly-detail-next">下一件 ${icon('ChevronRight')}</button></div><button id="assembly-continue" class="assembly-primary" disabled>${icon('Check')} 完成装配，进入实验</button></footer>
     </aside>
-    <div class="assembly-scene-heading"><span class="assembly-eyebrow">CHSH / OPTICAL BENCH</span><h2 id="assembly-task-title">光路装配</h2><span id="assembly-task-subtitle"></span></div>
+    <div class="assembly-scene-heading"><details id="bench-route" open>
+      <summary><span class="route-symbol">${icon('BookOpen')}</span><strong id="assembly-task-title">新手光路导览</strong><span id="assembly-task-subtitle"></span>${icon('ChevronRight')}</summary>
+      <nav class="route-stops" aria-label="探索光路环节">
+        <button type="button" data-stop="bbo" title="定位产生光子对的 BBO 晶体"><small>01</small>光源</button>
+        <button type="button" data-stop="A-hwp" title="定位测量半波片，查看四组角度"><small>02</small>分析</button>
+        <button type="button" data-stop="counter" title="定位符合计数设备"><small>03</small>计数</button>
+        <button type="button" data-stop="measure" title="使用已装好的光路进入完整实验，保留装配进度">去测量 ${icon('ChevronRight')}</button>
+      </nav><p id="route-question"></p>
+    </details></div>
     <button id="assembly-target" title="安装选中器件"><span class="assembly-target-ring">${icon('LocateFixed')}</span><span class="assembly-target-caption"></span></button>
     <div class="assembly-view-tools" role="group" aria-label="装配视角"><button data-assembly-view="overview">全景</button><button data-assembly-view="top">俯视</button><button id="assembly-refocus" title="定位选中器件" aria-label="定位选中器件">${icon('LocateFixed')}</button></div>
     <dialog id="assembly-reset-dialog"><form method="dialog"><h2>重新装配？</h2><p>本次装配进度将清空，器件全部回到库中。实验参数和已生成的数据不变。</p><div><button value="cancel">取消</button><button value="reset" class="assembly-primary">重新装配</button></div></form></dialog>`;
   document.body.appendChild(host);
+  if(matchMedia('(max-height:560px), (max-width:760px) and (max-height:720px)').matches) $('#bench-route').open=false;
   function save() {
     try { localStorage.setItem(storageKey,JSON.stringify({version:1,installed:[...installed]})); }
     catch (_) { storageFailed=true; }
@@ -67,13 +76,14 @@
     $('#assembly-continue').disabled = !complete;
     $('#assembly-next').disabled = complete;
     $('#assembly-detail-next').disabled = complete;
-    $('#assembly-task-title').textContent = complete ? '光路装配完成' : '光路装配';
-    $('#assembly-task-subtitle').textContent = complete ? '全部器件已就位' : `${items.length-installed.size} 件待安装`;
+    $('#assembly-task-title').textContent = complete ? '光路装配完成' : '新手光路导览';
+    $('#assembly-task-subtitle').textContent = `${installed.size} / ${items.length} 就位`;
   }
   function feedback(message) { $('#assembly-feedback').textContent=message; }
   function select(id,move=true) {
     const part = items.find(p => p.id===id);
     if(!part) return;
+    if(current!==id) $('.assembly-detail-scroll').scrollTop=0;
     current=id;
     const done = installed.has(id);
     scene.select(id,move);
@@ -91,7 +101,13 @@
     $('#assembly-target .assembly-target-caption').textContent=`安装 ${String(part.index).padStart(2,'0')}`;
     $('#assembly-target').setAttribute('aria-label','安装'+part.name);
     host.classList.add('show-detail');
-    feedback(done ? '器件已就位。' : `待安装：${part.name}`);
+    feedback(done ? '器件已就位。' : `安装位预览 · ${part.name}`);
+    const stop=part.category==='光源与制备'?'bbo':/^[AB]-(?!receiver)/.test(id)?'A-hwp':/^(counter|[AB]-receiver)/.test(id)?'counter':null;
+    host.querySelectorAll('[data-stop]').forEach(button=>{
+      if(button.dataset.stop===stop) button.setAttribute('aria-current','step');
+      else button.removeAttribute('aria-current');
+    });
+    $('#route-question').textContent={bbo:'泵浦光进入 BBO 晶体，在适当条件下可产生光子对。','A-hwp':'光子沿 A、B 两臂传播。各端的测量半波片决定分析方向。',counter:'两端在同一符合时间窗内各有一次探测，记为一次符合。'}[stop]||'遮光器件吸收不需要的光，减少杂散光进入分析臂。';
     renderList();
     renderProgress();
     document.dispatchEvent(new CustomEvent('assembly-selected',{detail:{id}}));
@@ -134,6 +150,22 @@
   }
   $('#assembly-mode').addEventListener('click',enter);
   $('#experiment-mode').addEventListener('click',leave);
+  $('.route-stops').addEventListener('click',event=>{
+    const stop=event.target.closest('[data-stop]')?.dataset.stop;
+    if(!stop) return;
+    if(stop==='measure') {
+      leave();
+      if($('#panel-body').hidden) $('#panel-collapse').click();
+      $('#measurement-workflow')?.scrollIntoView({block:'start'});
+      const action=['#next-group','#run','#results-open'].map($).find(b=>b&&!b.disabled&&b.getClientRects().length);
+      action?.focus({preventScroll:true});
+      return;
+    }
+    category=items.find(p=>p.id===stop).category; filter=''; $('#assembly-search').value='';
+    select(stop);
+    const item=host.querySelector(`[data-part="${stop}"]`);
+    if(item?.getClientRects().length) item.scrollIntoView({block:'nearest'});
+  });
   $('#assembly-continue').addEventListener('click',()=>{ if(installed.size===items.length) leave(); });
   $('#assembly-list').addEventListener('click',event=>{
     const button=event.target.closest('[data-part]');
@@ -166,10 +198,6 @@
     save(); enter(); feedback('装配已重置。');
   });
   host.querySelectorAll('[data-assembly-view]').forEach(button=>button.addEventListener('click',()=>window.Lab3D.preset(button.dataset.assemblyView)));
-  // Keep keyboard focus traversal available instead of the scene's legacy Tab shortcut.
-  window.addEventListener('keydown',event=>{
-    if(active && event.code==='Tab') event.stopImmediatePropagation();
-  },true);
   $('#run').addEventListener('click',event=>{
     if(active) { event.stopImmediatePropagation(); event.preventDefault(); }
   },true);

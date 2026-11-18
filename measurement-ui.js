@@ -11,6 +11,8 @@
   workflow.innerHTML=`<header><h3>逐组测量</h3><button id="measurement-reset" type="button" title="重新测量，保留装配角度配置" aria-label="重新测量">${icon('RotateCcw')}</button></header><p id="measurement-progress" role="status" aria-live="polite"></p><p id="chsh-status" class="measurement-warning" role="status" hidden></p><table class="measurement-ledger"><caption>四组角度与关联函数</caption><thead><tr><th>组</th><th>机械角 θA / θB</th><th>实测 E</th></tr></thead><tbody id="measurement-ledger"></tbody></table><div id="current-position"><div class="measurement-group-head"><h4 id="measurement-group-title"></h4><span id="position-status"></span></div><div class="position-pair">${['A','B'].map(arm=>`<label for="current-${arm}"><span>${arm} 端机械角</span><span class="hwp-input"><input id="current-${arm}" data-position-arm="${arm}" type="number" min="-90" max="90" step="any" inputmode="decimal"><span>°</span></span><small id="analysis-${arm}"></small><input type="range" data-position-arm="${arm}" min="-90" max="90" step="0.01" aria-label="调节 ${arm} 端当前机械角"></label>`).join('')}</div></div><div class="measurement-actions"><button id="next-group" type="button" hidden><span>下一组</span>${icon('ChevronRight')}</button></div><div id="measurement-acquisition"></div>`;
   $('#panel-body').prepend(workflow);
   $('#measurement-acquisition').append($('.acquisition'),$('.run-row'));
+  const dock=document.createElement('div');dock.className='acquire-dock';
+  $('#measurement-acquisition').append(dock);dock.append($('.measurement-actions'),$('.run-row'));
   const ledger=document.createElement('details');ledger.id='measurement-records';
   ledger.open=!matchMedia('(max-width:760px), (max-height:560px)').matches;
   ledger.innerHTML=`<summary><span>${icon('ChevronRight')}四组 E 记录</span><output id="latest-e"></output></summary>`;
@@ -23,6 +25,7 @@
   assembly.id='assembly-hwp-settings';assembly.className='measurement-settings';assembly.hidden=true;
   assembly.innerHTML=`<header><h3>四次实验 · 半波片角度</h3><button type="button" data-max-preset title="恢复最大违背示例角度" aria-label="恢复示例角度">${icon('RotateCcw')}</button></header>${controls('assembly')}<label class="assembly-preview-label" for="assembly-preview-group">装配预览<select id="assembly-preview-group">${[0,1,2,3].map(i=>`<option value="${i}">第 ${i+1} 组</option>`).join('')}</select></label>${['A','B'].map(arm=>`<label class="assembly-angle-preview">${arm} 端 <output id="assembly-preview-${arm}"></output><input class="hwp-slider" type="range" min="-90" max="90" step="0.01" data-slider-arm="${arm}" aria-label="${arm} 端当前组半波片机械角"></label>`).join('')}<p class="hwp-assumption">固定偏振片 0° · 分析角 = 2 × 机械角</p><p id="assembly-hwp-lock"></p>`;
   $('.assembly-model-note').before(assembly);
+  const notebook=createLabNotebook(workflow,assembly,ledger,icon);
   const reset=document.createElement('dialog');reset.id='measurement-reset-dialog';
   reset.innerHTML='<form method="dialog"><h2>重新测量？</h2><p>清除本轮计数、E 和 S，保留四组装配角度与装配进度。</p><div><button value="cancel" autofocus>取消</button><button value="reset" class="primary">重新测量</button></div></form>';
   document.body.append(reset);
@@ -73,6 +76,7 @@
   reset.addEventListener('close',()=>{if(reset.returnValue==='reset')api.resetMeasurement();});
   function render() {
     const m=api.getMeasurement(),w=m.workflow;
+    notebook.render(m);
     for(const host of [full,assembly]) {
       host.querySelectorAll('input,button,select').forEach(el=>el.disabled=m.locked);
       host.querySelectorAll('[data-hwp-arm]').forEach(input=>{
@@ -111,6 +115,7 @@
     for(const arm of ['A','B'])$('#analysis-'+arm).textContent=`分析角 ${fmt(2*w.position[arm])}°`;
     $('#current-position').hidden=w.completed===4;
     $('#next-group').hidden=!w.canNext;
+    dock.hidden=w.completed===4;
     $('#measurement-reset').disabled=w.status==='running';
     $('#measurement-acquisition .run-row').hidden=w.done;
     $('#hwp-model-label').textContent=validCHSH?'当前 V · 无背景理论 |S|':'当前 V · 理论组合 |S*|';

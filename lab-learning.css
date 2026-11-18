@@ -1,0 +1,73 @@
+/* Bench guide, acquisition notebook, and the phone's unobstructed scene area. */
+#bench-route{pointer-events:auto;width:min(348px,100%);border:0;border-left:2px solid #85cebc;border-radius:0;background:#132224ef;padding:8px 12px;text-shadow:none}
+#bench-route summary,#lab-notebook summary{cursor:pointer;list-style:none}
+#bench-route summary::-webkit-details-marker,#lab-notebook summary::-webkit-details-marker{display:none}
+#bench-route summary{display:flex;align-items:center;gap:7px;min-height:29px;color:#ddede7}
+#bench-route summary strong{font-size:14px;font-weight:550}
+#bench-route summary span,#lab-notebook summary span{float:none}
+.route-symbol{color:#a1d6c1;display:flex}
+#bench-route summary>svg,#lab-notebook summary>svg:last-child{width:13px;height:13px;flex-shrink:0}
+#bench-route[open] summary>svg,#lab-notebook[open] summary>svg:last-child{transform:rotate(90deg)}
+#bench-route #assembly-task-subtitle{margin-left:auto;color:#aec4bc;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:10px}
+.route-stops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(72px,1.12fr);gap:4px;margin:5px 0 7px}
+#assembly-workspace .route-stops button{color:#c8d6d1;background:transparent;border:0;border-bottom:2px solid #465956;border-radius:0;padding:4px 0;gap:5px;font-size:12px;min-height:33px;white-space:nowrap}
+.route-stops small{font-size:9px;color:#9aaea7;font-variant-numeric:tabular-nums}
+#assembly-workspace .route-stops [aria-current]{color:#bdffed;border-color:#8adfc4;background:#7dcfb319}
+#assembly-workspace .route-stops button:hover{background:#ffffff13}
+.route-stops button:last-child svg{width:13px;height:13px}
+#assembly-workspace #route-question{font-size:11px;line-height:1.65;color:#c6d5cd}
+.assembly-target-ring{background:#10404c8a}
+#assembly-workspace #assembly-target{gap:2px}
+#measurement-workflow{--axis-a:#8bdcde;--axis-b:#efbc7a}
+.instrument-panel,.scene-title,.view-rail,.topbar{letter-spacing:0}
+.e-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:5px 0 12px}
+.e-strip button{border:0;border-bottom:2px solid #435551;border-radius:0;display:flex;align-items:center;justify-content:space-between;gap:2px;min-height:28px;padding:2px 7px;font-size:12px;color:#bdcfc6;background:transparent;font-variant-numeric:tabular-nums}
+.e-strip button>span{font-size:10px}
+.e-strip button[data-state=current]{border-color:#e7bb76;background:#e0af6514;color:#f4d7a8}
+.e-strip button[data-state=done]{border-color:#88c9ab;background:#81cba512;color:#b9e2cd}
+.e-strip button:disabled{opacity:.65}
+.axis-label{display:flex;align-items:center;justify-content:space-between;gap:3px;min-height:32px}
+.axis-dial{--ink:#8bdcde;display:inline-flex;width:32px;height:32px;flex:none}
+.axis-dial[data-arm=B]{--ink:#efbc7a}
+.axis-dial svg{width:100%;height:100%;fill:none;stroke:#6b827c;stroke-width:1}
+.axis-grid{stroke:#586a66;stroke-width:.8}.axis-analysis{stroke:var(--ink);stroke-width:2.4}.axis-mechanical{stroke:white;stroke-width:2;stroke-dasharray:3 2}.axis-pin{fill:#e8f1ed;stroke:none}
+.axis-key{display:flex;gap:5px;align-items:center;justify-content:flex-end;font-size:10px;color:#bbc9c2;margin:0 0 6px}
+.axis-key i{width:14px;height:0;display:inline-block;border-top:2px dashed #dfebe6}.axis-key i:nth-of-type(2){border-top-style:solid;border-color:#92c0ba;margin-left:6px}
+.assembly-angle-preview{position:relative}.assembly-angle-preview .axis-dial{position:absolute;right:0;top:-4px;width:26px;height:26px}.assembly-angle-preview input{max-width:calc(100% - 35px)}
+#lab-notebook{border:0;border-top:1px solid #486057;border-bottom:1px solid #364a42;padding:0;margin:13px 0 4px}
+#lab-notebook summary{display:flex;align-items:center;gap:6px;min-height:42px;padding:5px 1px;color:#c7e8d4}
+#lab-notebook summary strong{font-weight:550;font-size:12px}#lab-notebook #note-label{margin-left:auto;font-size:10px;color:#b5c5bd}
+.note-body{padding:4px 0 8px;font-size:11px;color:#c8d8d0}.note-body p{margin:8px 0;line-height:1.65}
+.note-meta,.note-totals{display:flex;justify-content:space-between;align-items:center;gap:5px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.note-meta strong{font-size:11px;font-weight:550}.note-meta>span{font-size:10px;color:#becdc4}
+.outcome-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;margin:6px 0}
+.outcome-grid>div{padding:4px 2px;text-align:center;border-top:2px solid #596a63;background:#ffffff06;overflow-wrap:anywhere}
+.outcome-grid span,.outcome-grid strong{display:block;font-variant-numeric:tabular-nums}.outcome-grid span{font:12px/1.4 monospace;color:#c1d2c8}.outcome-grid strong{font-size:12px;margin-top:2px;font-weight:500}
+.outcome-grid [data-phase=active]{border-color:#e7bb76;background:#c99a4e20}.outcome-grid [data-phase=past],.outcome-grid [data-phase=recorded]{border-color:#79b99e}
+.note-choices{display:flex;gap:5px}.note-choices>button{font-size:11px;padding:5px 9px;min-height:30px;border-radius:4px}
+.note-choices>button[aria-pressed=true]{background:#354b41;border-color:#a4d1af;color:#d8f3db}
+#note-feedback{color:#becfc7}.note-totals b{font-weight:550;color:#f3e2bf}.note-totals span:first-child b{color:#9cd7d9}
+.note-balance{height:5px;background:#dcad72}.note-balance i{height:100%;display:block;background:#8acbcf}
+#note-equation,.note-result-formula{font-variant-numeric:tabular-nums;color:#d6eddc;overflow-wrap:anywhere}
+#measurement-records{margin:4px 0 0}
+#note-conclusion{margin:4px 24px 16px;padding:4px 0 4px 14px;border-left:2px solid #94cdb2;color:#bdcec4}
+#note-conclusion h3{font-size:15px;font-weight:550;color:#def1e4;margin:0 0 5px}#note-conclusion p{font-size:12px;line-height:1.65;margin:3px 0}
+#bench-route :focus-visible,#measurement-workflow :focus-visible{outline:2px solid #92dbcd;outline-offset:2px}
+@media(max-width:899px){
+ #bench-route{width:min(345px,100%);padding:5px 9px}#bench-route summary strong{font-size:12px}.route-stops{margin:1px 0 4px}#assembly-workspace #route-question{font-size:10px}
+}
+@media(max-height:560px) and (min-width:600px){#bench-route{max-width:100%}#bench-route #assembly-task-subtitle,.route-stops small{display:none}#bench-route summary>svg{margin-left:auto}}
+@media(max-width:760px) and (min-height:561px){
+ body:not(.assembly-active){--drawer:min(47dvh,440px)}
+ body:not(.assembly-active):has(.instrument-panel.collapsed){--drawer:40px}
+ body:not(.assembly-active) .instrument-panel{display:flex;flex-direction:column;left:8px;right:8px;top:auto;bottom:8px;width:auto;height:var(--drawer);max-height:var(--drawer);overflow:hidden;border-radius:8px;background:#162125fa}
+ .instrument-panel .panel-head{flex:none;min-height:38px;padding:5px 14px}.instrument-panel .panel-head button{min-width:36px;min-height:28px}
+ #panel-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scroll-padding-block:8px}
+ #measurement-acquisition{display:contents}
+ .acquire-dock{position:sticky;bottom:0;z-index:1;margin-inline:-8px;padding:5px 8px;background:#172326;box-shadow:0 -1px #384a45}
+ body:not(.assembly-active) .view-rail{top:auto;bottom:calc(var(--drawer) + 14px);left:8px;right:8px;width:auto;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:2px;padding:3px;border-radius:5px}
+ .view-rail .rail-label,.view-rail button b{display:none}.view-rail .rail-divider{width:1px;height:17px;margin:0 3px}.view-rail button{flex:1;white-space:nowrap;padding:3px 0;min-height:32px;font-size:11px}
+ body:not(.assembly-active) .movement{display:none}.scene-title .micro{display:none}.scene-title p{display:none}.scene-title h1{font-size:15px;margin:0}
+ .e-strip{margin-bottom:6px}.axis-label{min-height:28px}.axis-dial{width:28px;height:28px}.axis-key{margin-bottom:0}
+ #note-conclusion{margin-left:14px;margin-right:14px}
+}
