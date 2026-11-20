@@ -19,11 +19,11 @@
   $('.measurement-ledger').before(ledger);ledger.append($('.measurement-ledger'));
   const full=document.createElement('section');
   full.id='measurement-settings';full.className='measurement-settings';
-  full.innerHTML=`<details id="hwp-presets"><summary>四组装配角度配置</summary><header><h3>四次实验 · 机械角</h3><button type="button" data-max-preset title="恢复最大违背示例角度" aria-label="恢复示例角度">${icon('RotateCcw')}</button></header>${controls('experiment')}</details><details class="hwp-theory"><summary>理论预测 · 非实测结果</summary><div class="hwp-prediction"><span id="hwp-model-label">当前 V · 无背景理论 |S|</span><strong id="hwp-model-s"></strong><span>相同角度 · V = 1</span><output id="hwp-ideal-s"></output></div><p id="theory-chsh-status" class="measurement-warning" hidden></p><table><thead><tr><th>组</th><th>θA / θB</th><th>E 理论</th></tr></thead><tbody id="hwp-e-values"></tbody></table><p>|S| = |E₁ − E₂ + E₃ + E₄|</p><p>分析角 a = 2θA、b = 2θB；偏振片固定为 0°，波片零点已标定。每组 E 含四次独立计数，理论值不含背景与抽样噪声。</p></details><p id="hwp-lock-status" role="status"></p>`;
+  full.innerHTML=`<details id="hwp-presets"><summary>四组装配角度配置</summary><header><h3>四次实验 · 机械角</h3><button type="button" data-max-preset title="恢复最大违背示例角度" aria-label="恢复示例角度">${icon('RotateCcw')}</button></header>${controls('experiment')}</details><details class="hwp-theory"><summary>理论预测 · 非实测结果</summary><div class="hwp-prediction"><span id="hwp-model-label">当前 V · 无背景理论 |S|</span><strong id="hwp-model-s"></strong><span>相同角度 · V = 1</span><output id="hwp-ideal-s"></output></div><p id="theory-chsh-status" class="measurement-warning" hidden></p><table><thead><tr><th>组</th><th>θA / θB</th><th>E 理论</th></tr></thead><tbody id="hwp-e-values"></tbody></table><p>|S| = |E₁ − E₂ + E₃ + E₄|</p><p>分析角 a = 2θA、b = 2θB；偏振分析器固定为 0°，波片零点已标定。每组 E 含四次独立计数，理论值不含背景与抽样噪声。</p></details><p id="hwp-lock-status" role="status"></p>`;
   $('#parameters-details').before(full);
   const assembly=document.createElement('section');
   assembly.id='assembly-hwp-settings';assembly.className='measurement-settings';assembly.hidden=true;
-  assembly.innerHTML=`<header><h3>四次实验 · 半波片角度</h3><button type="button" data-max-preset title="恢复最大违背示例角度" aria-label="恢复示例角度">${icon('RotateCcw')}</button></header>${controls('assembly')}<label class="assembly-preview-label" for="assembly-preview-group">装配预览<select id="assembly-preview-group">${[0,1,2,3].map(i=>`<option value="${i}">第 ${i+1} 组</option>`).join('')}</select></label>${['A','B'].map(arm=>`<label class="assembly-angle-preview">${arm} 端 <output id="assembly-preview-${arm}"></output><input class="hwp-slider" type="range" min="-90" max="90" step="0.01" data-slider-arm="${arm}" aria-label="${arm} 端当前组半波片机械角"></label>`).join('')}<p class="hwp-assumption">固定偏振片 0° · 分析角 = 2 × 机械角</p><p id="assembly-hwp-lock"></p>`;
+  assembly.innerHTML=`<header><h3>四次实验 · 半波片角度</h3><button type="button" data-max-preset title="恢复最大违背示例角度" aria-label="恢复示例角度">${icon('RotateCcw')}</button></header>${controls('assembly')}<label class="assembly-preview-label" for="assembly-preview-group">装配预览<select id="assembly-preview-group">${[0,1,2,3].map(i=>`<option value="${i}">第 ${i+1} 组</option>`).join('')}</select></label>${['A','B'].map(arm=>`<label class="assembly-angle-preview">${arm} 端 <output id="assembly-preview-${arm}"></output><input class="hwp-slider" type="range" min="-90" max="90" step="0.01" data-slider-arm="${arm}" aria-label="${arm} 端当前组半波片机械角"></label>`).join('')}<p class="hwp-assumption">固定偏振分析器 0° · 分析角 = 2 × 机械角</p><p id="assembly-hwp-lock"></p>`;
   $('.assembly-model-note').before(assembly);
   const notebook=createLabNotebook(workflow,assembly,ledger,icon);
   const reset=document.createElement('dialog');reset.id='measurement-reset-dialog';
@@ -105,8 +105,9 @@
       return `<tr${i===w.current?' aria-current="step"':''} data-recorded="${!!result}"><th scope="row">E${i+1}<small>${status}</small></th><td>${fmt(pair.A)}° / ${fmt(pair.B)}°</td><td>${result?(result.E===null?'无有效计数':result.E.toFixed(5)):'—'}</td></tr>`;
     }).join('');
     $('#measurement-group-title').textContent=`第 ${w.current+1}/4 组`;
-    $('#position-status').textContent=w.done?'E 已记录':w.status==='paused'?'已暂停':w.busy?'采集中 · 角度锁定':w.valid?'可采集':'角度输入无效';
-    $('#position-status').dataset.ready=String(w.valid);
+    const pump=api.getLaser();
+    $('#position-status').textContent=w.done?'E 已记录':!pump.on?(w.status==='paused'?'已暂停 · 等待开机':'等待激光开机'):!pump.power?'等待调高功率':w.status==='paused'?'已暂停':w.busy?'采集中 · 角度锁定':w.valid?'可采集':'角度输入无效';
+    $('#position-status').dataset.ready=String(w.canStart);
     workflow.querySelectorAll('[data-position-arm]').forEach(input=>{
       input.disabled=w.busy||w.done;
       const arm=input.dataset.positionArm,value=w.position[arm];

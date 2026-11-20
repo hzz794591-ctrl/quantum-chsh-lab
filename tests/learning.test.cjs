@@ -26,6 +26,7 @@ async function main(){
     await page.locator('#assembly-A0').fill('12.5');
     assert.equal(await page.locator('#assembly-hwp-settings [data-arm=A] .axis-analysis').getAttribute('transform'),'rotate(-25 19 19)');
     await click('#assembly-target');await click('[data-stop=measure]');
+    await click('#experiment-pump [role=switch]');
     assert.equal((await assembly()).active,false);assert.equal((await assembly()).preview,null);
     assert.deepEqual((await assembly()).installed,['A-hwp']);
     assert.equal(await page.locator('#current-A').inputValue(),'12.5');

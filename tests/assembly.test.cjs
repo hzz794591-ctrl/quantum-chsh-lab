@@ -106,6 +106,7 @@ async function main() {
     await page.locator('[data-assembly-view=overview]').click();
     await page.screenshot({path:path.join(output,'desktop-complete.png')});
     await page.locator('#assembly-continue').click();
+    await page.locator('#experiment-pump [role=switch]').click();
     assert.equal((await snapshot()).active,false);
     assert.equal(await page.locator('.instrument-panel').isVisible(),true);
     // Exercise the existing run/pause/complete flow and data provenance in every mode.

@@ -1,0 +1,18 @@
+.pump-console,.optic-clip{letter-spacing:0;border:0;border-block:1px solid #40534d;border-radius:0;background:none;color:#dbe9df;margin:6px 0 10px;padding:5px 0}
+.pump-console[hidden],.optic-clip[hidden],.pump-level[hidden],.clip-selected .assembly-preview{display:none}
+.pump-line,.pump-level label,.optic-clip summary{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pump-line button,#assembly-workspace .pump-line button{display:inline-flex;align-items:center;gap:7px;min-height:32px;border:0;background:none;border-radius:3px;color:#d6e4dc;font-size:12px;padding:2px 4px;cursor:pointer}
+.pump-switch i{position:relative;width:29px;height:16px;border-radius:10px;background:#42504e;box-shadow:inset 0 0 0 1px #879994}
+.pump-switch i::after{content:'';position:absolute;top:3px;left:3px;width:10px;height:10px;background:#eef3ea;border-radius:50%}
+.pump-switch[aria-checked=true] i{background:#327c66;box-shadow:inset 0 0 0 1px #9acdb6}.pump-switch[aria-checked=true] i::after{left:16px}
+.pump-disclosure output{min-width:2ch;color:#efc787;font:600 14px/1.2 monospace;text-align:right}.pump-disclosure[aria-expanded=true] svg,.optic-clip[open] summary svg{transform:rotate(90deg)}
+.pump-level{padding:5px 4px}.pump-level label,.pump-level small{font-size:11px;color:#c0d0c6}.pump-level label span{color:#9fafa7}.pump-level input{width:100%;accent-color:#91d5bf;margin:6px 0;display:block}.pump-level small{display:block;line-height:1.5}
+.optic-clip summary{justify-content:flex-start;cursor:pointer;list-style:none;padding:5px 0;font-size:12px;min-height:32px}.optic-clip summary::-webkit-details-marker{display:none}.optic-clip summary strong{font-weight:550}.optic-clip summary span{margin-left:auto;color:#a4c1b6;white-space:nowrap}
+.optic-clip video,#clip-theater video{width:100%;aspect-ratio:16/9;display:block;background:#111c20;object-fit:contain}.optic-clip p,#assembly-workspace .optic-clip p{margin:6px 0 3px;color:#c0cec5;font-size:12px;line-height:1.65}
+.clip-tools,#clip-theater header{display:flex;align-items:center;justify-content:space-between;gap:8px}.clip-tools{margin:2px 0}.clip-tools small{color:#abc2b9;font-variant-numeric:tabular-nums}
+.clip-tools button,#assembly-workspace .clip-tools button,#clip-theater button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:4px 8px;color:#cce8db;border:0;border-radius:4px;background:none;cursor:pointer}.clip-tools button:hover,#assembly-workspace .clip-tools button:hover,#clip-theater button:hover{background:#293e39}
+#clip-theater{box-sizing:border-box;width:min(96vw,calc((95dvh - 86px)*16/9),2562px);max-width:none;max-height:96dvh;padding:0;border:1px solid #526963;border-radius:6px;color:#e3eee8;background:#142023;overflow:hidden;margin:auto}
+#clip-theater::backdrop{background:#08100feb}#clip-theater header{height:44px;padding:0 9px 0 15px;font-size:14px}#clip-theater button{min-width:36px}#clip-theater button:focus-visible{outline:2px solid #92dbcd}
+#clip-theater .clip-transport{height:36px;display:flex;align-items:center;gap:10px;padding:0 14px 0 8px}.clip-transport input{min-width:0;flex:1;accent-color:#85d5bd}.clip-transport output{font:12px/1.2 monospace;color:#ceded5}
+@media(max-height:500px){#clip-theater{width:min(98vw,calc((98dvh - 71px)*16/9));max-height:98dvh}#clip-theater header{height:34px}#clip-theater .clip-transport{height:32px}}
+.pump-console :focus-visible,.optic-clip :focus-visible{outline:2px solid #92dbcd;outline-offset:2px}

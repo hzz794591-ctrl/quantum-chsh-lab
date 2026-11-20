@@ -183,6 +183,7 @@ async function main(){
   await page.reload();await page.waitForFunction(()=>window.QLab);
   assert.deepEqual((await measure(page)).groups,configured);
   await page.locator('#experiment-mode').click();
+  await page.locator('#experiment-pump [role=switch]').click();
   assert.equal(await page.locator('#prepare-group, #target-A, #target-B, #alignment-status').count(),0);
   assert.equal((await measure(page)).workflow.target,undefined);
   assert.equal(await page.locator('#run').isEnabled(),true);
@@ -324,6 +325,7 @@ async function main(){
     const canvas=await page.locator('#viewport canvas').screenshot();
     const stats=await sharp(canvas).stats();assert.ok(stats.channels[0].stdev>10);
     await page.locator('#experiment-mode').click();
+    await page.locator('#experiment-pump [role=switch]').click();
     const compact=viewport.width<=760||viewport.height<=560;
     assert.equal(await page.locator('#measurement-records').evaluate(el=>el.open),!compact);
     const header=await page.locator('.topbar').boundingBox(),title=await page.locator('.scene-title').boundingBox();
